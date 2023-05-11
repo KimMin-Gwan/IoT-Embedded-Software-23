@@ -78,7 +78,8 @@ class Information:
             return "Sunday"
         else:
             return "Something Wrong"
-
+    def set_sec():
+        pass
 
 
 
