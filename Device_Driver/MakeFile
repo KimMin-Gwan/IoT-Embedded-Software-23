@@ -1,0 +1,12 @@
+KDIR = /lib/modules/$(shell uname –r)/build        
+LED_MODULE = led_driver.c
+STEP_MORTOR_MODULE = step_mortor_driver.c
+L2C_LCD_MODULE = l2c_lcd_driver.c
+TOOLCHAIN = arm-linux-gnueabihf-
+CC = $(TOOLCHAIN)gcc
+obj-m := $(MODULE_NAME).o
+all: driver
+driver:
+	$(MAKE) -C $(KDIR) M=$$PWD modules
+clean:
+	$(MAKE) -C $(KDIR) M=$$PWD clean 
