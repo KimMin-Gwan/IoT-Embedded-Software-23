@@ -37,7 +37,8 @@ class MainFunction:
     def set_curtain_control(self, flag):
         self._curtain.move_curtain(flag)
 
-
+    def main_test():
+        print('hello')
         
 
 def main():
