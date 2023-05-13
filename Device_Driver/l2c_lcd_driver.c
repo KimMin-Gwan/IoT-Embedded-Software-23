@@ -1,0 +1,9 @@
+#include <linux/init.h>
+#include <linux/module.h>
+#include <linux/kernel.h>
+#include <linux/fs.h>
+#include <asm/uaccess.h>
+#include <linux/slab.h>
+#include <linux/gpio.h>
+#include <mach/platform.h>
+#include <linux/io.h>
