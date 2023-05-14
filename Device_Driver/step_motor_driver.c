@@ -22,7 +22,7 @@
 #define GPIO3 83
 #define GPIO4 84
 
-char sm_usage = 0;
+static int sm_usage = 0;
 static void *sm_map;
 volatile unsigned *sm;
 
@@ -70,9 +70,8 @@ static void rev_run_sm(int loopcnt)
     }
 }
 
-static int sm_open(struct inode *inode, struct file *filp)
+static int sm_open(struct inode *minode, struct file *mfile)
 {
-    /*
     if (sm_usage != 0)
         return -EBUSY;
     sm_usage = 1;
@@ -86,49 +85,40 @@ static int sm_open(struct inode *inode, struct file *filp)
     }
 
     sm = (volatile unsigned int *)sm_map;
-    *(sm + 1) &= ~(0x7 << (3 * 7));
-    *(sm + 1) |= ~(0x1 << (3 * 7));
+    *(sm + 1) &= ~(0x7 << (3 * 7)); // 수정 필요
+    *(sm + 1) |= ~(0x1 << (3 * 7)); // 수정 필요
 
-    return 0;
-    */
-   
-    int reg;
-
-    reg = (GPLR2 & 0x001E0000) >> 17;
-    reg = (GPDR2 & 0x001E0000) >> 17;
-
-    MOD_INC_USE_COUNT;
     return 0;
 }
 
-static int sm_release(struct inode *inode, struct file *filp)
+static int sm_release(struct inode *minode, struct file *mfile)
 {
-    MOD_DEC_USE_COUNT;
+    sm_usage = 0;
+    if (sm)
+        iounmap(sm);
+
     return 0;
 }
 
-static static ssize_t sm_write(struct file *filp, const char *buffer, size_t length, loff_t *offset)
+static ssize_t sm_write(struct file *mfile, const char *gdata, size_t length, loff_t *offset)
 {
-    int mode;
-    size_t len;
+    char mode;
 
-    printk("sm_write: stepmotor operation\n");
-    len = length;
-    get_user(mode, (int *)buffer);
+    copy_from_user(&mode, gdata, length);
 
     switch (mode)
     {
-    case 1:
+    case '1':
         run_sm(30);
         break;
-    case 2:
+    case '2':
         rev_run_sm(30);
         break;
     default:
         break;
     }
 
-    return len;
+    return length;
 }
 
 static struct file_operations sm_fops =

@@ -12,7 +12,7 @@
 #define LED_NAME "LED_DRIVER"
 #define GPIO_SIZE 256
 
-char led_usage = 0;
+static int led_usage = 0;
 static void *led_map;
 volatile unsigned *led;
 
@@ -46,7 +46,7 @@ static int led_release(struct inode *minode, struct file *mfile)
     return 0;
 }
 
-static int led_write(struct file *mfile, const char *gdata, size_t length, loff_t *off_what)
+static ssize_t led_write(struct file *mfile, const char *gdata, size_t length, loff_t *off_what)
 {
     char tmp_buf;
     int result;
@@ -97,5 +97,3 @@ static void led_exit(void)
 
 module_init(led_init);
 module_exit(led_exit);
-
-MODULE_LICENSE("GPL");
