@@ -1,5 +1,5 @@
 KDIR = /lib/modules/$(shell uname –r)/build        
-MODULE_NAME = led_driver.c
+MODULE_NAME = led_driver
 TOOLCHAIN = arm-linux-gnueabihf-
 CC = $(TOOLCHAIN)gcc
 obj-m := $(MODULE_NAME).o

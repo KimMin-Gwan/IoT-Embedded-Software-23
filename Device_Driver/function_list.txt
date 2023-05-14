@@ -1,20 +1,22 @@
+__________System Call of Device Driver__________
+
+
+
 ########## led_driver ##########
 
-static int led_open(struct inode *minode, struct file *mfile) -> .open
+.open() : static int led_open(struct inode *minode, struct file *mfile)
 
-static int led_release(struct inode *minode, struct file *mfile) -> .release
+.release() : static int led_release(struct inode *minode, struct file *mfile)
 
-static ssize_t led_write(struct file *mfile, const char *gdata, size_t length, loff_t *off_what) -> .write
-
-
+.write() : static ssize_t led_write(struct file *mfile, const char *gdata, size_t length, loff_t *off_what)
 
 
 
 ########## step_motor_driver ##########
 
-static int sm_open(struct inode *minode, struct file *mfile) -> .open
+.open() : static int sm_open(struct inode *minode, struct file *mfile)
 
-static int sm_release(struct inode *minode, struct file *mfile) -> .release
+.release() : static int sm_release(struct inode *minode, struct file *mfile)
 
-static ssize_t sm_write(struct file *mfile, const char *gdata, size_t length, loff_t *off_what) -> .write
-gdata = 스텝 모터 모드(정방향 = '1', 역방향 = '2')
+.write() : static ssize_t sm_write(struct file *mfile, const char *gdata, size_t length, loff_t *off_what)
+           gdata = 스텝 모터 모드(정방향 = '1', 역방향 = '2')
