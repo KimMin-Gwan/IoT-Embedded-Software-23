@@ -1,0 +1,10 @@
+KDIR = /lib/modules/$(shell uname –r)/build        
+MODULE_NAME = step_motor_driver
+TOOLCHAIN = arm-linux-gnueabihf-
+CC = $(TOOLCHAIN)gcc
+obj-m := $(MODULE_NAME).o
+all: driver
+driver:
+	$(MAKE) -C $(KDIR) M=$$PWD modules
+clean:
+	$(MAKE) -C $(KDIR) M=$$PWD clean 

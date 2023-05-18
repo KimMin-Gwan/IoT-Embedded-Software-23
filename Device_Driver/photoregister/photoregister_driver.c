@@ -4,6 +4,10 @@
 #include <linux/delay.h>
 #include <linux/gpio.h>
 
+#define SM_MAJOR 222
+#define SM_NAME "PHOTOREGISTER_DRIVER"
+#define GPIO_SIZE 256
+
 static int photoregister_pin = 0;
 static int gpio_irq = 0;
 

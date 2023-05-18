@@ -1,17 +1,17 @@
 #include <linux/init.h>
-#include <linux/module.h>
 #include <linux/kernel.h>
+#include <linux/module.h>
 #include <linux/fs.h>
-#include <asm/uaccess.h>
+#include <linux/proc_fs.h>
 #include <linux/slab.h>
-#include <linux/gpio.h>
-#include <mach/platform.h>
 #include <linux/io.h>
+#include <linux/gpio.h>
 #include <linux/version.h>
 #include <asm/delay.h>
-#include <linux/proc_fs.h>
+#include <asm/uaccess.h>
+#include <mach/platform.h>
 
-#define SM_MAJOR 68
+#define SM_MAJOR 221
 #define SM_NAME "SM_DRIVER"
 #define SPEED_DELAY 20000 // 500 ~ 20000
 #define GPIO_SIZE 256

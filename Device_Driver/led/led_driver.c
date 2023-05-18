@@ -8,7 +8,7 @@
 #include <asm/uaccess.h>
 #include <mach/platform.h>
 
-#define LED_MAJOR 221
+#define LED_MAJOR 220
 #define LED_NAME "LED_DRIVER"
 #define GPIO_SIZE 256
 
