@@ -27,7 +27,7 @@ static int led_open(struct inode *minode, struct file *mfile)
     {
         printk("error: mapping gpio memory");
         iounmap(led_map);
-        return _EBUSY;
+        return -EBUSY;
     }
 
     led = (volatile unsigned int *)led_map;

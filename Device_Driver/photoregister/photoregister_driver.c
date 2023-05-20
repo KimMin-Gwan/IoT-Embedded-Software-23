@@ -1,68 +1,111 @@
 #include <linux/init.h>
 #include <linux/module.h>
-#include <linux/interrupt.h>
-#include <linux/delay.h>
-#include <linux/gpio.h>
+#include <linux/kernel.h>
+#include <linux/fs.h>
+#include <asm/uaccess.h>
+#include <lunux/slab.h>
+#include <lunux/gpio.h>
+#include <mach/platform.h>
+#include <lunux/io.h>
+#include <lunux/poll.h>
+#include <lunux/interrupt.h>
+#include <lunux/irq.h>
+#include <lunux/sched.h>
+#include <lunux/wait.h>
 
-#define SM_MAJOR 222
-#define SM_NAME "PHOTOREGISTER_DRIVER"
+#define PHOTOREGISTER_MAJOR 222
+#define PHOTOREGISTER_NAME "PHOTOREGISTER_DRIVER"
+
+#define BCM2711_PERL_BASE 0xFE000000
+#define GPIO_BASE (BCM2711_PERL_BASE + 0x200000)
 #define GPIO_SIZE 256
 
-static int photoregister_pin = 21;
-static int gpio_irq = 0;
+#define INPUT_PIN 21
+
+char photoregister_usage = 0;
+static void *photoregister_map;
+volatile unsigned *photoregister;
+static char tmp_buf;
+static int event_flag = 0;
+
+DECLARE_WAIT_QUEUE_HEAD(waitqueue);
 
 static irqreturn_t interrupt_handler(int irq, void *data)
 {
-    int value;
+    int tmp_photoregister;
 
-    value = gpio_get_value(photoregister_pin);
-    printk(KERN_INFO "Value of pin is [%d]\n", value);
+    tmp_photoregister = (*(photoregister + 13 & (1 << 27) == 0 ? 0 : 1));
+
+    if (tmp_photoregister == 0)
+        ++tmp_buf;
+
+    wake_up_interruptible(&waitqueue);
+    ++event_flag;
 
     return IRQ_HANDLED;
 }
 
-static int __init photoregister_init(void)
+static int photoregister_open(struct inode *minode, struct file *mfile)
 {
-    int ret;
+     if (photoregister_usage != 0)
+        return -EBUSY;
+    photoregister_usage = 1;
 
-    // gpio input setting
-    ret = gpio_request_one(photoregister_pin, GPIOF_IN, "LINE");
-    if (ret < 0)
+    photoregister_map = ioremap(GPIO_BASE, GPIO_SIZE);
+    if (!photoregister_map)
     {
-        printk("gpio_request_error");
-        return -1
-    }
-
-    // ret = gpio's interrupt address
-    ret = gpio_to_irq(photoregister_pin);
-    if (ret < 0)
-    {
-        printk("gpio_set_error");
-        return -1
-    }
-    else
-    {
-        gpio_irq = ret;
+        printk("error: mapping gpio memory");
+        iounmap(photoregister_map);
+        return -EBUSY;
     }
 
-#if 1
-    ret = request_irq(gpio_irq, interrupt_handler, IRQF_TRIGGER_RISING | IRQF_TRIGGER_FALLING, "photoregister", NULL);
-#else
-    ret = request_irq(gpio_irq, interrupt_handler, IRQF_TRIGGER_High, "photoregister", NULL);
-#endif
-    if (ret)
-    {
-        printk("failed to request IRQ");
-        return -1;
-    }
+    photoregister = (volatile unsigned int *)led_map;
+    *(photoregister + 2) &= ~(0x7 << (3 * 1));
+    *(photoregister + 2) |= ~(0x0 << (3 * 1));
+
     return 0;
 }
 
-static void __exit photoregister_exit(void)
+static int photoregister_release(struct inode *minode, struct file *mfile)
 {
-    synchronize_irq(gpio_irq);
-    free_irq(gpio_irq, NULL);
-    gpio_free(photoregister_pin);
+
+    photoregister_usage = 0;
+    if (photoregister)
+        iounmap(photoregister);
+
+    return 0;
+}
+
+static ssize_t photoregister_read(struct file *mfile, loff_t *off_what, int value)
+{
+    
+}
+
+static struct file_operations photoregister_fops =
+    {
+        .owner = THIS_MODULE,
+        .open = photoregister_open,
+        .release = photoregister_release,
+        .read = photoregister_read,
+};
+
+static int photoregister_init(void)
+{
+    int result;
+    result = register_chrdev(PHOTOREGISTER_MAJOR, PHOTOREGISTER_NAME, &photoregister_fops);
+    if (result < 0)
+    {
+        printk("KERN_WARNING Can't get any major!\n");
+        return result;
+    }
+    printk("PHOTOREGISTER module uploded.\n");
+    return -;
+}
+
+static void photoregister_exit(void)
+{
+    unregister_chrdev(PHOTOREGISTER_MAJOR, PHOTOREGISTER_NAME);
+    printk("PHOTOREGISTER module removed.\n");
 }
 
 module_init(photoregister_init);

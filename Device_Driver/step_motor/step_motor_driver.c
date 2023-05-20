@@ -81,7 +81,7 @@ static int sm_open(struct inode *minode, struct file *mfile)
     {
         printk("error: mapping gpio memory");
         iounmap(sm_map);
-        return _EBUSY;
+        return -EBUSY;
     }
 
     sm = (volatile unsigned int *)sm_map;
