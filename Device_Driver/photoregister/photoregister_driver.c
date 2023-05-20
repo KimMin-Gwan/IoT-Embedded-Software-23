@@ -8,7 +8,7 @@
 #define SM_NAME "PHOTOREGISTER_DRIVER"
 #define GPIO_SIZE 256
 
-static int photoregister_pin = 0;
+static int photoregister_pin = 21;
 static int gpio_irq = 0;
 
 static irqreturn_t interrupt_handler(int irq, void *data)
@@ -25,6 +25,7 @@ static int __init photoregister_init(void)
 {
     int ret;
 
+    // gpio input setting
     ret = gpio_request_one(photoregister_pin, GPIOF_IN, "LINE");
     if (ret < 0)
     {
@@ -32,14 +33,16 @@ static int __init photoregister_init(void)
         return -1
     }
 
+    // ret = gpio's interrupt address
     ret = gpio_to_irq(photoregister_pin);
     if (ret < 0)
     {
         printk("gpio_set_error");
         return -1
     }
-    else{
-        gpio_irq=ret;
+    else
+    {
+        gpio_irq = ret;
     }
 
 #if 1
