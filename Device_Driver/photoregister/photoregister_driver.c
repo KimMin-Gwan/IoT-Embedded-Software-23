@@ -25,25 +25,8 @@
 char photoregister_usage = 0;
 static void *photoregister_map;
 volatile unsigned *photoregister;
-static char tmp_buf;
-static int event_flag = 0;
 
 DECLARE_WAIT_QUEUE_HEAD(waitqueue);
-
-static irqreturn_t interrupt_handler(int irq, void *data)
-{
-    int tmp_photoregister;
-
-    tmp_photoregister = (*(photoregister + 13 & (1 << 27) == 0 ? 0 : 1));
-
-    if (tmp_photoregister == 0)
-        ++tmp_buf;
-
-    wake_up_interruptible(&waitqueue);
-    ++event_flag;
-
-    return IRQ_HANDLED;
-}
 
 static int photoregister_open(struct inode *minode, struct file *mfile)
 {
@@ -59,7 +42,7 @@ static int photoregister_open(struct inode *minode, struct file *mfile)
         return -EBUSY;
     }
 
-    photoregister = (volatile unsigned int *)led_map;
+    photoregister = (volatile unsigned int *)photoregister_map;
     *(photoregister + 2) &= ~(0x7 << (3 * 1));
     *(photoregister + 2) |= ~(0x0 << (3 * 1));
 
