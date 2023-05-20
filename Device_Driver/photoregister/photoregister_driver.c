@@ -47,7 +47,7 @@ static irqreturn_t interrupt_handler(int irq, void *data)
 
 static int photoregister_open(struct inode *minode, struct file *mfile)
 {
-     if (photoregister_usage != 0)
+    if (photoregister_usage != 0)
         return -EBUSY;
     photoregister_usage = 1;
 
@@ -76,9 +76,17 @@ static int photoregister_release(struct inode *minode, struct file *mfile)
     return 0;
 }
 
-static ssize_t photoregister_read(struct file *mfile, loff_t *off_what, int value)
+static ssize_t photoregister_read(struct file *mfile, const char *gdata, size_t length, loff_t *off_what)
 {
-    
+    int value = gpio_get_value(INPUT_PIN);
+    char result = value + '0';
+
+    if (copy_to_user(gdata, &result, 1))
+    {
+        return -EFAULT;
+    }
+
+    return length
 }
 
 static struct file_operations photoregister_fops =
@@ -99,7 +107,7 @@ static int photoregister_init(void)
         return result;
     }
     printk("PHOTOREGISTER module uploded.\n");
-    return -;
+    return 0;
 }
 
 static void photoregister_exit(void)

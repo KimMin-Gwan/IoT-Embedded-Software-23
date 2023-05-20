@@ -20,3 +20,13 @@ __________System Call of Device Driver__________
 
 .write() : static ssize_t sm_write(struct file *mfile, const char *gdata, size_t length, loff_t *off_what)
            gdata = 스텝 모터 모드(정방향 = '1', 역방향 = '2')
+
+
+
+########## photoregister_driver ##########
+
+.open() : static int photoregister_open(struct inode *minode, struct file *mfile)
+
+.release() : static int photoregister_release(struct inode *minode, struct file *mfile)
+
+.read() : static ssize_t photoregister_read(struct file *mfile, const char *gdata, size_t length, loff_t *off_what)
