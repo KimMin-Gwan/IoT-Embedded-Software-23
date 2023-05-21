@@ -32,7 +32,7 @@ static int led_open(struct inode *minode, struct file *mfile)
 
     led = (volatile unsigned int *)led_map;
     *(led + 1) &= ~(0x7 << (3 * 7));
-    *(led + 1) |= ~(0x1 << (3 * 7));
+    *(led + 1) |= (0x1 << (3 * 7));
 
     return 0;
 }

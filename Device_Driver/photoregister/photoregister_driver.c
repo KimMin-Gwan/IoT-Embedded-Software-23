@@ -44,7 +44,7 @@ static int photoregister_open(struct inode *minode, struct file *mfile)
 
     photoregister = (volatile unsigned int *)photoregister_map;
     *(photoregister + 2) &= ~(0x7 << (3 * 1));
-    *(photoregister + 2) |= ~(0x0 << (3 * 1));
+    *(photoregister + 2) |= (0x0 << (3 * 1));
 
     return 0;
 }

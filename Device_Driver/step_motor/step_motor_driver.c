@@ -17,11 +17,11 @@
 #define SPEED_DELAY 20000 // 500 ~ 20000
 #define GPIO_SIZE 256
 
-// 4개 GPIO
-#define GPIO1 22
-#define GPIO2 23
-#define GPIO3 24
-#define GPIO4 25
+// 4개 GPIO PIN
+#define SM_PIN_1 22
+#define SM_PIN_2 23
+#define SM_PIN_3 24
+#define SM_PIN_4 25
 
 static int sm_usage = 0;
 static void *sm_map;
@@ -34,17 +34,17 @@ static void run_sm(int loopcnt)
 
     for (i = 0; i < loopcnt; i++)
     {
-        GPSR2 = (1 << (GPIO1 - 64));
-        GPCR2 = (1 << (GPIO2 - 64));
+        *(sm + 7) = (0x1 << SM_PIN_1);
+        *(sm + 10) = (0x1 << SM_PIN_2);
         udelay(SPEED_DELAY);
-        GPSR2 = (1 << (GPIO3 - 64));
-        GPCR2 = (1 << (GPIO4 - 64));
+        *(sm + 7) = (0x1 << SM_PIN_3);
+        *(sm + 10) = (0x1 << SM_PIN_4);
         udelay(SPEED_DELAY);
-        GPCR2 = (1 << (GPIO1 - 64));
-        GPSR2 = (1 << (GPIO2 - 64));
+        *(sm + 7) = (0x1 << SM_PIN_1);
+        *(sm + 10) = (0x1 << SM_PIN_2);
         udelay(SPEED_DELAY);
-        GPCR2 = (1 << (GPIO3 - 64));
-        GPSR2 = (1 << (GPIO4 - 64));
+        *(sm + 7) = (0x1 << SM_PIN_3);
+        *(sm + 10) = (0x1 << SM_PIN_4);
         udelay(SPEED_DELAY);
     }
 }
@@ -56,18 +56,21 @@ static void rev_run_sm(int loopcnt)
 
     for (i = 0; i < loopcnt; i++)
     {
-        GPSR2 = (1 << (GPIO3 - 64));
-        GPCR2 = (1 << (GPIO4 - 64));
+    for (i = 0; i < loopcnt; i++)
+    {
+        *(sm + 7) = (0x1 << SM_PIN_3);
+        *(sm + 10) = (0x1 << SM_PIN_4);
         udelay(SPEED_DELAY);
-        GPSR2 = (1 << (GPIO1 - 64));
-        GPCR2 = (1 << (GPIO2 - 64));
+        *(sm + 7) = (0x1 << SM_PIN_1);
+        *(sm + 10) = (0x1 << SM_PIN_2);
         udelay(SPEED_DELAY);
-        GPCR2 = (1 << (GPIO3 - 64));
-        GPSR2 = (1 << (GPIO4 - 64));
+        *(sm + 7) = (0x1 << SM_PIN_3);
+        *(sm + 10) = (0x1 << SM_PIN_4);
         udelay(SPEED_DELAY);
-        GPCR2 = (1 << (GPIO1 - 64));
-        GPSR2 = (1 << (GPIO2 - 64));
+        *(sm + 7) = (0x1 << SM_PIN_1);
+        *(sm + 10) = (0x1 << SM_PIN_2);
         udelay(SPEED_DELAY);
+    }
     }
 }
 
@@ -87,17 +90,17 @@ static int sm_open(struct inode *minode, struct file *mfile)
 
     sm = (volatile unsigned int *)sm_map;
 
-    *(sm + 1) &= ~(0x7 << (3 * 5));
-    *(sm + 1) |= ~(0x1 << (3 * 5));
-    
-    *(sm + 1) &= ~(0x7 << (3 * 6));
-    *(sm + 1) |= ~(0x1 << (3 * 6));
-    
-    *(sm + 1) &= ~(0x7 << (3 * 8));
-    *(sm + 1) |= ~(0x1 << (3 * 8));
-    
     *(sm + 2) &= ~(0x7 << (3 * 2));
-    *(sm + 2) |= ~(0x1 << (3 * 2));
+    *(sm + 2) |= (0x1 << (3 * 2));
+
+    *(sm + 2) &= ~(0x7 << (3 * 3));
+    *(sm + 2) |= (0x1 << (3 * 3));
+
+    *(sm + 2) &= ~(0x7 << (3 * 4));
+    *(sm + 2) |= (0x1 << (3 * 4));
+
+    *(sm + 2) &= ~(0x7 << (3 * 5));
+    *(sm + 2) |= (0x1 << (3 * 5));
 
     return 0;
 }
@@ -120,10 +123,10 @@ static ssize_t sm_write(struct file *mfile, const char *gdata, size_t length, lo
     switch (mode)
     {
     case '1':
-        run_sm(30);
+        run_sm(10);
         break;
     case '2':
-        rev_run_sm(30);
+        rev_run_sm(10);
         break;
     default:
         break;
