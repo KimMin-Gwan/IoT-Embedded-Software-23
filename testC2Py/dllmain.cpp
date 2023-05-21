@@ -22,7 +22,7 @@ BOOL APIENTRY DllMain( HMODULE hModule,
 */
 
 #ifdef _MSC_VER
-#define EXPORT  __declspec(dllexport)
+#define EXPORT __declspec(dllexport)
 #else
 #define EXPORT
 #endif
@@ -30,28 +30,45 @@ BOOL APIENTRY DllMain( HMODULE hModule,
 #include <vector>
 #include <numeric>
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <fcntl.h>
+#include <linux/kdev_t.h>
+
+#define LED_FILE_NAME "/dev/led_driver"
+#define SM_FILE_NAME "/dev/step_motor_driver"
+#define PHOTOREGISTER_FILE_NAME "/dev/photoregister_driver"
+
 extern "C"
 {
-    // 1. int 타입 인자를 받고, int 타입을 리턴하는 예
-    EXPORT int add(int a, int b)
+    EXPORT void ledOn()
     {
-        return a + b;
+        int fd = open(LED_FILE_NAME, O_RDWR);
+        if (fd < 0)
+        {
+            fprintf(stderr, "Can't open %s\n", LED_FILE_NAME);
+            return;
+        }
+        char data = 1;
+
+        write(fd, &data, sizeof(char));
     }
 
-    // 2. out 파라메터로 포인터를 사용하는 예
-    EXPORT void sub(double a, double b, double* result)
+    EXPORT void ledOff()
     {
-        *result = a - b;
-    }
+        int fd = open(LED_FILE_NAME, O_RDWR);
+        if (fd < 0)
+        {
+            fprintf(stderr, "Can't open %s\n", LED_FILE_NAME);
+            return;
+        }
 
-    // 3. 배열 파라메터를 사용하는 예
-    EXPORT int accumulate(int* input, int size)
-    {
-        std::vector<int> v(input, input + size);
-        int result = std::accumulate(v.begin(), v.end(), 0u);
-        return result;
-    }
+        char data = 0;
 
+        write(fd, &data, sizeof(char));
+    }
 }
-
 

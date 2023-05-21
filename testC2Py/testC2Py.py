@@ -1,5 +1,6 @@
 import ctypes                           # 파이썬 extension을 사용하기 위한 모듈
 import platform                         # 파이썬 아키텍처를 확인하기 위한 모듈
+import time
 
 if 'Windows' == platform.system() :     # 윈도우 운영체제에서 c 모듈 로드
     path = './testC2Py.dll'
@@ -14,7 +15,7 @@ else :
 def main():
     print(c_module)
     # int add(int a, int b)
-    
+    """  
     # 함수 주소 포인터
     add = c_module.add  
     print("add : ", add)   # <_FuncPtr object at 0x000002196BFE9860>
@@ -30,6 +31,23 @@ def main():
 
     # 결과 출력
     print('res :', res)   # 3
+
+    """ 
+
+    ledOn = c_module.ledOn()
+    ledOff = c_module.ledOff()
+    ledOn.argtypes = []
+    ledOn.restype = None
+
+    ledOff.argtypes = []
+    ledOff.restype = None
+    
+    while True:
+        ledOn()
+        time.sleep(1)
+        ledOff()
+        time.sleep(1)
+
 
 if __name__ == "__main__":
     main()
