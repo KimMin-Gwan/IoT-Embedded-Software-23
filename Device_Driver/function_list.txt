@@ -9,7 +9,7 @@ __________System Call of Device Driver__________
 .release() : static int led_release(struct inode *minode, struct file *mfile)
 
 .write() : static ssize_t led_write(struct file *mfile, const char *gdata, size_t length, loff_t *off_what)
-
+           gdata = 0 이면 led off gdata != 0 이면 led on (서로 반대일 수 있음)
 
 
 ########## step_motor_driver ##########
@@ -30,3 +30,4 @@ __________System Call of Device Driver__________
 .release() : static int photoregister_release(struct inode *minode, struct file *mfile)
 
 .read() : static ssize_t photoregister_read(struct file *mfile, const char *gdata, size_t length, loff_t *off_what)
+          조도센서 값을 gdata에 저장
