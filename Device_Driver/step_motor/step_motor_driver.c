@@ -7,6 +7,7 @@
 #include <linux/io.h>
 #include <linux/gpio.h>
 #include <linux/version.h>
+#include <asm/io.h>
 #include <asm/delay.h>
 #include <asm/uaccess.h>
 #include <mach/platform.h>
@@ -17,10 +18,10 @@
 #define GPIO_SIZE 256
 
 // 4개 GPIO
-#define GPIO1 81
-#define GPIO2 82
-#define GPIO3 83
-#define GPIO4 84
+#define GPIO1 22
+#define GPIO2 23
+#define GPIO3 24
+#define GPIO4 25
 
 static int sm_usage = 0;
 static void *sm_map;
@@ -85,8 +86,18 @@ static int sm_open(struct inode *minode, struct file *mfile)
     }
 
     sm = (volatile unsigned int *)sm_map;
-    *(sm + 1) &= ~(0x7 << (3 * 7)); // 수정 필요
-    *(sm + 1) |= ~(0x1 << (3 * 7)); // 수정 필요
+
+    *(sm + 1) &= ~(0x7 << (3 * 5));
+    *(sm + 1) |= ~(0x1 << (3 * 5));
+    
+    *(sm + 1) &= ~(0x7 << (3 * 6));
+    *(sm + 1) |= ~(0x1 << (3 * 6));
+    
+    *(sm + 1) &= ~(0x7 << (3 * 8));
+    *(sm + 1) |= ~(0x1 << (3 * 8));
+    
+    *(sm + 2) &= ~(0x7 << (3 * 2));
+    *(sm + 2) |= ~(0x1 << (3 * 2));
 
     return 0;
 }
