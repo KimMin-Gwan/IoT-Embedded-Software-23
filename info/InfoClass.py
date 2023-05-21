@@ -51,6 +51,14 @@ class Information:
     def get_alarm_flag(self):
         return self._alarm_flag
 
+    def is_alarm_time(self):
+        if self._nowTime['hour'] == self._alarm_time['hour']:
+            if self._nowTime['minute'] == self._alarm_time['minute']:
+                if self._nowTime['second'] == self._alarm_time['second']:
+                    return True
+
+        return False
+
     # 접근자
     def get_alarm_time(self):
         return self._alarm_time
