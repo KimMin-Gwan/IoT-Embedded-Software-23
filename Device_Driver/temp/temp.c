@@ -32,6 +32,8 @@ extern "C"
         char data = 1;
 
         write(fd, &data, sizeof(char));
+
+        close(fd);
     }
 
     EXPORT void ledOff()
@@ -46,5 +48,23 @@ extern "C"
         char data = 0;
 
         write(fd, &data, sizeof(char));
+
+        close(fd);
+    }
+
+    EXPORT void printPhotoregisterValue()
+    {
+        int fd = open(PHOTOREGISTER_FILE_NAME, O_RDWR);
+        if (fd < 0)
+        {
+            fprintf(stderr, "Can't open %s\n", LED_FILE_NAME);
+            return;
+        }
+
+        char value;
+        read(fd, &value, sizeof(char));
+        fprintf("Value : %d", value);
+
+        close(fd);
     }
 }
