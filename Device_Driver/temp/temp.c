@@ -21,6 +21,7 @@
 
 extern "C"
 {
+    //led 켜기
     EXPORT void ledOn()
     {
         int fd = open(LED_FILE_NAME, O_RDWR);
@@ -29,13 +30,14 @@ extern "C"
             fprintf(stderr, "Can't open %s\n", LED_FILE_NAME);
             return;
         }
-        char data = 1;
+        char data = 0;
 
         write(fd, &data, sizeof(char));
 
         close(fd);
     }
 
+    // led 끄기
     EXPORT void ledOff()
     {
         int fd = open(LED_FILE_NAME, O_RDWR);
@@ -45,13 +47,14 @@ extern "C"
             return;
         }
 
-        char data = 0;
+        char data = 1;
 
         write(fd, &data, sizeof(char));
 
         close(fd);
     }
 
+    // 조도센서 테스트용 (조도센서 값 출력)
     EXPORT void printPhotoregisterValue()
     {
         int fd = open(PHOTOREGISTER_FILE_NAME, O_RDWR);
