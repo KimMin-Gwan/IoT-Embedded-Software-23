@@ -6,19 +6,19 @@ ground : 9 (Ground)
 
 ########## step_motor ##########
 
-vcc : 
-IN1 : 
-IN2 : 
-IN3 : 
-IN4 : 
+vcc : 2 (5V power)
+IN1 : 15 (GPIO 22)
+IN2 : 16 (GPIO 23)
+IN3 : 18 (GPIO 24)
+IN4 : 22 (GPIO 25)
 
 ########## photoregister ##########
 vcc : 17 (3V3 power)
 ground : 39 (Ground)
-DOUT : 40 (GPIO21)
+DOUT : 40 (GPIO 21)
 
 ########## i2c lcd ##########
-vcc : 4 (5V pwoer)
+vcc : 4 (5V power)
 ground : 6 (Ground)
 SDA : 3 (GPIO2(SDA))
 SCL : 5 (GPIO3(SCL))
