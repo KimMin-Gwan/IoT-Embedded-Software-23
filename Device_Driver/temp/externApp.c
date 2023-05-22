@@ -106,7 +106,8 @@ extern "C"
 		}
 
 		read(fd, &brightness, sizeof(int));
-
+		close(fd);
+		
 		return brightness;
 	}
 }
