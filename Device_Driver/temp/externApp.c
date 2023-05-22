@@ -20,7 +20,8 @@
 #define PHOTOREGISTER_FILE_NAME "/dev/photoregister_driver"
 
 extern "C"
-{
+{	
+	// led 켜기
 	Export void ledOn()
 	{
 		int fd;
@@ -39,6 +40,7 @@ extern "C"
 		close(fd);
 	}
 
+	// led 끄기
 	Export void ledOff()
 	{
 		int fd;
@@ -57,6 +59,8 @@ extern "C"
 		close(fd);
 	}
 
+	
+	// 스텝모터 정방향 회전
 	Export void stepMotorCW()
 	{
 		int fd;
@@ -75,6 +79,7 @@ extern "C"
 		close(fd);
 	}
 
+	// 스텝모터 역방향 회전
 	Export void stepMotorCCW()
 	{
 		int fd;
@@ -93,6 +98,7 @@ extern "C"
 		close(fd);
 	}
 
+	// 조도센서 밝기 가져오기
 	Export int getBrightness()
 	{
 		int fd;
@@ -107,7 +113,7 @@ extern "C"
 
 		read(fd, &brightness, sizeof(int));
 		close(fd);
-		
+
 		return brightness;
 	}
 }
