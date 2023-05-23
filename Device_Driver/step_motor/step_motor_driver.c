@@ -122,10 +122,10 @@ static ssize_t sm_write(struct file *mfile, const char *gdata, size_t length, lo
 
     switch (mode)
     {
-    case '1':
+    case 1:
         run_sm(10);
         break;
-    case '2':
+    case 2:
         rev_run_sm(10);
         break;
     default:
