@@ -1,16 +1,16 @@
-from Curtain_Master.constants import STEP_MOTOR_PATH, RESISTOR_PATH, LED_PATH
+from Curtain_Master.constants import PATH
 import ctypes
 
 class Motor:
     def __init__(self):
         try:
-            self.c_module = ctypes.cdll.LoadLibrary(STEP_MOTOR_PATH)
+            self.c_module = ctypes.cdll.LoadLibrary(PATH)
         except:
             raise OSError()
 
         # 함수 주소 포인터
-        self.pull = self.c_module.pull
-        self.push = self.c_module.push
+        self.pull = self.c_module.stepMotorCW
+        self.push = self.c_module.stepMotorCCW
 
         # c에서 제작한 함수 파라미터 형식 지정
         self.pull.argtypes = []
@@ -21,20 +21,16 @@ class Motor:
         self.push.argtypes = None
 
     def pull_motor(self):
-        #반복문?
         self.pull
-        return
 
     def pull_motor(self):
-        #반복문?
         self.push
-        return
     
 
 class Photosresistor:
     def __init__(self):
         try:
-            self.c_module = ctypes.cdll.LoadLibrary(RESISTOR_PATH)
+            self.c_module = ctypes.cdll.LoadLibrary(PATH)
         except:
             raise OSError()
         
@@ -52,10 +48,26 @@ class Photosresistor:
 class Led:
     def __init__(self):
         try:
-            self.c_module = ctypes.cdll.LoadLibrary(LED_PATH)
+            self.c_module = ctypes.cdll.LoadLibrary(PATH)
         except:
             raise OSError()
         
+        self.ledOn = self.c_module.ledOn
+        self.ledOff= self.c_module.ledOff
+
+        self.ledOn.argtypes = []
+        self.ledOn.restype = None
+
+        self.ledOff.argtypes = []
+        self.ledOff.restype = None
+
+    def led_on(self):
+        self.ledOn()
+
+    def led_off(self):
+        self.ledOff()
+
+        """
         # 초기설정
         self.red_on= self.c_module.red_led_on
         self.green_on= self.c_module.green_led_on
@@ -106,3 +118,5 @@ class Led:
     def led_blue_off(self):
         self.blue_off()
         return
+
+    """
