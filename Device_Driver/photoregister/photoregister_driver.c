@@ -3,14 +3,14 @@
 #include <linux/kernel.h>
 #include <linux/fs.h>
 #include <asm/uaccess.h>
-#include <lunux/slab.h>
-#include <lunux/gpio.h>
-#include <lunux/io.h>
-#include <lunux/poll.h>
-#include <lunux/interrupt.h>
-#include <lunux/irq.h>
-#include <lunux/sched.h>
-#include <lunux/wait.h>
+#include <linux/slab.h>
+#include <linux/gpio.h>
+#include <linux/io.h>
+#include <linux/poll.h>
+#include <linux/interrupt.h>
+#include <linux/irq.h>
+#include <linux/sched.h>
+#include <linux/wait.h>
 
 #define PHOTOREGISTER_MAJOR 222
 #define PHOTOREGISTER_NAME "PHOTOREGISTER_DRIVER"
@@ -69,11 +69,11 @@ static ssize_t photoregister_read(struct file *mfile, char *gdata, size_t length
      
      *result = value;
 
-    int ret = copy_to_user(gdata, result, sizeof(char))
+    int ret = copy_to_user(gdata, result, sizeof(char));
     if (ret < 0)
-        retun - 1;
+        return -1;
     
-    return length
+    return length;
 }
 
 static struct file_operations photoregister_fops =
