@@ -69,11 +69,11 @@ static ssize_t photoregister_read(struct file *mfile, const char *gdata, size_t 
      
      *result = value;
 
-    int ret = copy_to_user(gdata, result, sizeof(char))
+    int ret = copy_to_user(gdata, result, sizeof(char));
     if (ret < 0)
-        retun - 1;
+        return -1;
     
-    return length
+    return length;
 }
 
 static struct file_operations photoregister_fops =
