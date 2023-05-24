@@ -60,7 +60,7 @@ static ssize_t led_write(struct file *mfile, const char *gdata, size_t length, l
 
     printk("data from app : %d\n", tmp_buf);
 
-    if (tmp_buf != 0)
+    if (tmp_buf == 0)
         *(led + 7) |= (0x1 << 17);
     else
         *(led + 10) |= (0x1 << 17);

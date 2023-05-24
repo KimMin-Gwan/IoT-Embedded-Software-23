@@ -122,7 +122,7 @@ static ssize_t sm_write(struct file *mfile, const char *gdata, size_t length, lo
 
     int ret = copy_from_user(mode, gdata, length);
     if (ret < 0)
-        return - 1;
+        return -1;
 
     switch (*mode)
     {
