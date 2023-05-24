@@ -10,11 +10,13 @@
 #include <asm/io.h>
 #include <asm/delay.h>
 #include <asm/uaccess.h>
-#include <mach/platform.h>
 
 #define SM_MAJOR 221
 #define SM_NAME "SM_DRIVER"
 #define SPEED_DELAY 20000 // 500 ~ 20000
+
+#define BCM2711_PERL_BASE 0xFE000000
+#define GPIO_BASE (BCM2711_PERL_BASE + 0x400000)
 #define GPIO_SIZE 256
 
 // 4개 GPIO PIN
@@ -47,8 +49,6 @@ static void run_sm(int loopcnt)
         *(sm + 7) = (0x1 << SM_PIN_4);
         udelay(SPEED_DELAY);
     }
-    /*
-    */
 }
 
 // loopcnt만큼 역방향 회전
@@ -56,8 +56,6 @@ static void rev_run_sm(int loopcnt)
 {
     int i;
 
-    for (i = 0; i < loopcnt; i++)
-    {
     for (i = 0; i < loopcnt; i++)
     {
         *(sm + 7) = (0x1 << SM_PIN_3);
@@ -72,7 +70,6 @@ static void rev_run_sm(int loopcnt)
         *(sm + 10) = (0x1 << SM_PIN_1);
         *(sm + 7) = (0x1 << SM_PIN_2);
         udelay(SPEED_DELAY);
-    }
     }
 }
 
@@ -118,16 +115,21 @@ static int sm_release(struct inode *minode, struct file *mfile)
 
 static ssize_t sm_write(struct file *mfile, const char *gdata, size_t length, loff_t *offset)
 {
-    char mode;
+    char *mode;
+    mode = kmalloc(length, GFP_KERNEL);
+    if (mode == NULL)
+        return -1;
 
-    copy_from_user(&mode, gdata, length);
+    int ret = copy_from_user(mode, gdata, length);
+    if (ret < 0)
+        retun - 1;
 
     switch (mode)
     {
-    case 1:
+    case 0:
         run_sm(10);
         break;
-    case 2:
+    case 1:
         rev_run_sm(10);
         break;
     default:
@@ -166,3 +168,5 @@ static void sm_exit(void)
 
 module_init(sm_init);
 module_exit(sm_exit);
+
+MODULE_LICENSE("GPL");

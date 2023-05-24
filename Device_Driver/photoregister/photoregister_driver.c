@@ -5,7 +5,6 @@
 #include <asm/uaccess.h>
 #include <lunux/slab.h>
 #include <lunux/gpio.h>
-#include <mach/platform.h>
 #include <lunux/io.h>
 #include <lunux/poll.h>
 #include <lunux/interrupt.h>
@@ -62,13 +61,18 @@ static int photoregister_release(struct inode *minode, struct file *mfile)
 static ssize_t photoregister_read(struct file *mfile, const char *gdata, size_t length, loff_t *off_what)
 {
     int value = gpio_get_value(INPUT_PIN);
-    char result = value + '0';
+    char *result;
+    
+    result = kmalloc(length, GFP_KERNEL);
+    if (result == NULL)
+        return -1;
+     
+     *result = value;
 
-    if (copy_to_user(gdata, &result, 1))
-    {
-        return -EFAULT;
-    }
-
+    int ret = copy_to_user(gdata, result, sizeof(char))
+    if (ret < 0)
+        retun - 1;
+    
     return length
 }
 
@@ -101,3 +105,5 @@ static void photoregister_exit(void)
 
 module_init(photoregister_init);
 module_exit(photoregister_exit);
+
+MODULE_LICENSE("GPL");

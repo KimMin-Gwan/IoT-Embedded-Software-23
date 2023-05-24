@@ -1,0 +1,24 @@
+########## led_device_driver ##########
+
+1. cd /root/raspberry/app/IoT-Embedded-Software-23/Device_Driver/led
+2. make
+3. mknod /dev/led_driver c 220 0
+4. insmod led_driver.ko
+
+
+
+########## step_motor_device_driver ##########
+
+1. cd /root/raspberry/app/IoT-Embedded-Software-23/Device_Driver/step_motor
+2. make
+3. mknod /dev/step_motor_driver c 221 0
+4. insmod led_driver.ko
+
+
+
+########## photoregister_driver ##########
+
+1. cd /root/raspberry/app/IoT-Embedded-Software-23/Device_Driver/photoregister
+2. make
+3. mknod /dev/photoregister_driver c 222 0
+4. insmod led_driver.ko

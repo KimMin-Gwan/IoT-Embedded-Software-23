@@ -6,10 +6,10 @@
 #include <linux/io.h>
 #include <linux/gpio.h>
 #include <asm/uaccess.h>
-#include <mach/platform.h>
 
 #define LED_MAJOR 220
 #define LED_NAME "LED_DRIVER"
+#define GPIO_BASE 0xFE000000
 #define GPIO_SIZE 256
 
 static int led_usage = 0;
@@ -97,3 +97,5 @@ static void led_exit(void)
 
 module_init(led_init);
 module_exit(led_exit);
+
+MODULE_LICENSE("GPL");
