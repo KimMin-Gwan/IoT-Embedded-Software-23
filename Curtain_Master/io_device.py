@@ -23,11 +23,11 @@ class Motor:
     def pull_motor(self):
         self.pull
 
-    def pull_motor(self):
+    def push_motor(self):
         self.push
     
 
-class Photosresistor:
+class Photoresistor:
     def __init__(self):
         try:
             self.c_module = ctypes.cdll.LoadLibrary(PATH)

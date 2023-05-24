@@ -40,13 +40,15 @@ static void run_sm(int loopcnt)
         *(sm + 7) = (0x1 << SM_PIN_3);
         *(sm + 10) = (0x1 << SM_PIN_4);
         udelay(SPEED_DELAY);
-        *(sm + 7) = (0x1 << SM_PIN_1);
-        *(sm + 10) = (0x1 << SM_PIN_2);
+        *(sm + 10) = (0x1 << SM_PIN_1);
+        *(sm + 7) = (0x1 << SM_PIN_2);
         udelay(SPEED_DELAY);
-        *(sm + 7) = (0x1 << SM_PIN_3);
-        *(sm + 10) = (0x1 << SM_PIN_4);
+        *(sm + 10) = (0x1 << SM_PIN_3);
+        *(sm + 7) = (0x1 << SM_PIN_4);
         udelay(SPEED_DELAY);
     }
+    /*
+    */
 }
 
 // loopcnt만큼 역방향 회전
@@ -64,11 +66,11 @@ static void rev_run_sm(int loopcnt)
         *(sm + 7) = (0x1 << SM_PIN_1);
         *(sm + 10) = (0x1 << SM_PIN_2);
         udelay(SPEED_DELAY);
-        *(sm + 7) = (0x1 << SM_PIN_3);
-        *(sm + 10) = (0x1 << SM_PIN_4);
+        *(sm + 10) = (0x1 << SM_PIN_3);
+        *(sm + 7) = (0x1 << SM_PIN_4);
         udelay(SPEED_DELAY);
-        *(sm + 7) = (0x1 << SM_PIN_1);
-        *(sm + 10) = (0x1 << SM_PIN_2);
+        *(sm + 10) = (0x1 << SM_PIN_1);
+        *(sm + 7) = (0x1 << SM_PIN_2);
         udelay(SPEED_DELAY);
     }
     }
