@@ -58,7 +58,7 @@ static int photoregister_release(struct inode *minode, struct file *mfile)
     return 0;
 }
 
-static ssize_t photoregister_read(struct file *mfile, const char *gdata, size_t length, loff_t *off_what)
+static ssize_t photoregister_read(struct file *mfile, char *gdata, size_t length, loff_t *off_what)
 {
     int value = gpio_get_value(INPUT_PIN);
     char *result;

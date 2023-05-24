@@ -13,7 +13,7 @@
 
 #define SM_MAJOR 221
 #define SM_NAME "SM_DRIVER"
-#define SPEED_DELAY 20000 // 500 ~ 20000
+#define SPEED_DELAY 1
 
 #define BCM2711_PERL_BASE 0xFE000000
 #define GPIO_BASE (BCM2711_PERL_BASE + 0x400000)
@@ -38,16 +38,16 @@ static void run_sm(int loopcnt)
     {
         *(sm + 7) = (0x1 << SM_PIN_1);
         *(sm + 10) = (0x1 << SM_PIN_2);
-        udelay(SPEED_DELAY);
+        mdelay(SPEED_DELAY);
         *(sm + 7) = (0x1 << SM_PIN_3);
         *(sm + 10) = (0x1 << SM_PIN_4);
-        udelay(SPEED_DELAY);
+        mdelay(SPEED_DELAY);
         *(sm + 10) = (0x1 << SM_PIN_1);
         *(sm + 7) = (0x1 << SM_PIN_2);
-        udelay(SPEED_DELAY);
+        mdelay(SPEED_DELAY);
         *(sm + 10) = (0x1 << SM_PIN_3);
         *(sm + 7) = (0x1 << SM_PIN_4);
-        udelay(SPEED_DELAY);
+        mdelay(SPEED_DELAY);
     }
 }
 
@@ -60,16 +60,16 @@ static void rev_run_sm(int loopcnt)
     {
         *(sm + 7) = (0x1 << SM_PIN_3);
         *(sm + 10) = (0x1 << SM_PIN_4);
-        udelay(SPEED_DELAY);
+        mdelay(SPEED_DELAY);
         *(sm + 7) = (0x1 << SM_PIN_1);
         *(sm + 10) = (0x1 << SM_PIN_2);
-        udelay(SPEED_DELAY);
+        mdelay(SPEED_DELAY);
         *(sm + 10) = (0x1 << SM_PIN_3);
         *(sm + 7) = (0x1 << SM_PIN_4);
-        udelay(SPEED_DELAY);
+        mdelay(SPEED_DELAY);
         *(sm + 10) = (0x1 << SM_PIN_1);
         *(sm + 7) = (0x1 << SM_PIN_2);
-        udelay(SPEED_DELAY);
+        mdelay(SPEED_DELAY);
     }
 }
 
@@ -124,7 +124,7 @@ static ssize_t sm_write(struct file *mfile, const char *gdata, size_t length, lo
     if (ret < 0)
         retun - 1;
 
-    switch (mode)
+    switch (*mode)
     {
     case 0:
         run_sm(10);
