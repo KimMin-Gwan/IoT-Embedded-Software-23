@@ -32,7 +32,7 @@ extern "C"
 			return;
 		}
 
-		char led_control = 1;
+		char led_control = 0;
 		write(fd, &led_control, sizeof(char));
 
 		close(fd);
@@ -51,7 +51,7 @@ extern "C"
 			return;
 		}
 
-		char led_control = 0;
+		char led_control = 1;
 		write(fd, &led_control, sizeof(char));
 
 		close(fd);
