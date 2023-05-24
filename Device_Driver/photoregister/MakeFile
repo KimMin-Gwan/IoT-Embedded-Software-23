@@ -1,4 +1,4 @@
-KDIR = /lib/modules/$(shell uname –r)/build
+KDIR = /lib/modules/$(shell uname -r)/build
 TOOLCHAIN = arm-linux-gnueabihf-
 CC = $(TOOLCHAIN)gcc
 obj-m := photoregister_driver.o
