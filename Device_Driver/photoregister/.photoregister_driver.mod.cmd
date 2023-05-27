@@ -1,0 +1,1 @@
+cmd_/root/raspberry/app/IoT-Embedded-Software-23/Device_Driver/photoregister/photoregister_driver.mod := printf '%s\n'   photoregister_driver.o | awk '!x[$$0]++ { print("/root/raspberry/app/IoT-Embedded-Software-23/Device_Driver/photoregister/"$$0) }' > /root/raspberry/app/IoT-Embedded-Software-23/Device_Driver/photoregister/photoregister_driver.mod
