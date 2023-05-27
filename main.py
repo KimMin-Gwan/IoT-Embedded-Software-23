@@ -28,7 +28,6 @@ def main():
     flask_server.run_server()
 
     print('Now Ready')
-    lcd_master.led_green_on() # 녹색 불 켜주기
 
     #  >>>>>>>>  메인 루프   <<<<<<<<<<<<
     """
