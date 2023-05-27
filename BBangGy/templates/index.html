@@ -1,96 +1,53 @@
 <!DOCTYPE html>
-<html lang="ko">
-
+<link rel="stylesheet" href="./static/frame.css" type="text/css">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./static/frame.css" type="text/css">
-    <title>Document</title>
-</head>
-
-<body>
-    <div id="wrap">
-        <div class="title">
-            <h1>알람 설정</h1>
-        </div>
-        <div class="content">
-            <h2>날짜</h2>
-            <br>
-            <h1 id="clock"></h1>
-            <div id="result"></div>
-            <br>
-            <button id="res" type="submit" onclick="res()">예약</button>
-            <br>
-            <form action="open">
-                <button type="submit" id="cu_open" onclick="cu_open()">
-                    열기
-                </button>
-            </form>
-            <form action="close">
-                <button type="submit" id="cu_close" onclick="cu_close()">
-                    닫기
-                </button>
-            </form>
-
-        </div>
-    </div>
-    <!-- 현재 몇월 몇일인지 날짜 표현. -->
+    <title>예약</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        //현재 날짜와 시간을 표현해주는 함수.
-        var Target = document.getElementById("clock");
-        function clock() {
-            var time = new Date();
-            var year = time.getFullYear();
-            var month = time.getMonth();
-            var date = time.getDate();
-            var day = time.getDay();
-            var week = ['일', '월', '화', '수', '목', '금', '토'];
-
-            var hours = time.getHours();
-            var min = time.getMinutes();
-            var sec = time.getSeconds();
-
-            Target.innerText = `${year}년 ${month + 1}월 ${date}일 ${week[day]}
-
-            ${hours < 10 ? `0${hours}` : `${hours}`}:${min < 10 ? `0${min}` : `${min} `}`
-        };
-        clock();
-        setInterval(clock, 1000);
-        // reservation함수가 res에서 받은 시간을 나타낸다.
-        function res() {
-            while (1) {
-                if (confirm("예약하시겠습니까?") == true) {
-                    var x = prompt("시간 입력");
-                    var y = prompt("분 입력");
-                    if (x <= 24 && y < 60) {
-                        x = Number(x)
-                        y = Number(y)
-                        document.write(x + "시 " + y + "분 예약 되었습니다.")
-                        console.log('완료.')
-                        break
-                    }
-                    else {
-                        alert('잘못입력하였습니다.')
-                        break;
-                    }
-                }
-                else {
-                    console.log('취소.')
-                    break
-                }
-            }
-        };
-        //커튼 여는 함수
-        function cu_open() {
-            alert("열립니다.")
-
-        }
-        //커튼 닫는 함수
-        function cu_close() {
-            alert("닫힙니다.")
-        }
+        $(document).ready(function() {
+            $('#submit-btn').click(function() {
+                var hour = $('#hour-input').val();
+                var min = $('#min-input').val();
+                $.post('/', {hour: hour,min}, function(response) {
+                    $('#result').text(response);
+                });
+            });
+        });
     </script>
-</body>
+    <script>
+    //커튼 여는 함수
+    function cu_open(){
+        alert("열립니다.")
+    }
+    //커튼 닫는 함수
+    function cu_close(){
+        alert("닫힙니다.")
+    }
+    </script>
+    <script>
+        var date = new Date()
+        var hour = getDate.
+    </script>
+</head>
+<body>
 
+    <div id="wrap">
+        <h1>예약</h1>
+        <input type="text" id="hour-input" placeholder="시간 입력">
+        <input type="text" id="min-input" placeholder="분 입력">
+
+        <button id="submit-btn">전송</button>
+        <div id="result"></div>
+
+        <form action="/open">
+            <button id="open" onclick="cu_open">열기</button>
+        </form>
+
+        <form action="/close">
+            <button id="close" onclick="cu_close">닫기</button>
+        </form>
+
+    </div>
+</body>
 </html>
