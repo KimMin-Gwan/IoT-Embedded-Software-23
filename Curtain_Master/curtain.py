@@ -28,7 +28,7 @@ class Curtain():
     # 멀티스레드를 사용해야될 수 있음
     # 모터가 움직이는 동안 모든 시스템이 정지해있을 수도 있기때문
     def check_birghtness(self, led_master):
-        if self._brightness > CM.PATIENCE:
+        if self._brightness < CM.PATIENCE:
             if self._curtain_flag is False:
                 self._motor.pull()
                 self.change_curtain_flag()

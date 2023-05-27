@@ -1,4 +1,4 @@
-PATIENCE = 50
+PATIENCE = 1
 
 PATH = './../nunna/externApp.so'
 
