@@ -5,6 +5,7 @@
     <title>예약</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
+        //예약시간 
         $(document).ready(function() {
             $('#submit-btn').click(function() {
                 var hour = $('#hour-input').val();
@@ -25,25 +26,22 @@
         alert("닫힙니다.")
     }
     </script>
-    <script>
-        var date = new Date()
-        var hour = getDate.
-    </script>
 </head>
 <body>
 
     <div id="wrap">
+        {% comment %} 예약 {% endcomment %}
         <h1>예약</h1>
         <input type="text" id="hour-input" placeholder="시간 입력">
         <input type="text" id="min-input" placeholder="분 입력">
 
         <button id="submit-btn">전송</button>
         <div id="result"></div>
-
+        {% comment %} 커튼 열기 {% endcomment %}
         <form action="/open">
             <button id="open" onclick="cu_open">열기</button>
         </form>
-
+        {% comment %} 커튼 닫기 {% endcomment %}
         <form action="/close">
             <button id="close" onclick="cu_close">닫기</button>
         </form>

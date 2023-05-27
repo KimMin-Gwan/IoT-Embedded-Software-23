@@ -4,6 +4,7 @@ app = Flask(__name__)
 
 
 @app.route('/', methods=['GET', 'POST'])
+#예약시간 포스트
 def index():
     if request.method == 'POST':
         hour = request.form['hour']
@@ -12,12 +13,12 @@ def index():
         print(hour,min)
         return 'POST: {}시 {}분'.format(hour,min)
     return render_template('index.html')
-
+#열기
 @app.route('/open')
 def button_op():
     print('open')
     return 'open'
-
+#닫기
 @app.route('/close')
 def button_cl():
     print('close')
