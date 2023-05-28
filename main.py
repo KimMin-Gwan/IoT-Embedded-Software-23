@@ -59,6 +59,8 @@ def main():
         print("-----------------------------")
         info_master()
 
+        curtain_master.check_birghtness()
+
         if info_master.get_alarm_flag():
             if info_master.is_alarm_time():
                 curtain_master.move_curtain(True)
