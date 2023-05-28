@@ -1,5 +1,6 @@
 import ctypes
 import time
+import threading
 
 PATH = './Device_Driver/temp/externApp.so'
 
@@ -37,8 +38,9 @@ def main():
     ledOff.argtypes = []
     ledOff.restype = None
     #---------------------------------
-    while True:    
-        print(resist_value())
+    i=0
+    while True:
+        pull()
 
 if __name__ == '__main__':
     main()

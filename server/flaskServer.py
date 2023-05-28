@@ -44,4 +44,4 @@ class Server():
             return render_template('index.html')
 
     def run_server(self):
-        self.app.run('0.0.0.0', port=5001, debug =True)
+        self.app.run('172.30.1.68', port=5001, debug =True)

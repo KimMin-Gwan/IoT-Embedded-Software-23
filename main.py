@@ -69,6 +69,7 @@ def main():
     args = (info_master, curtain_master)
     thread = threading.Thread(target = mainLoop, args=args)
     thread.start()
+    time.sleep(3)
     flask_server.run_server()
 
         
