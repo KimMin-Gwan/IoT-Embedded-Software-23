@@ -49,6 +49,8 @@ class Photoresistor:
 
     def get_brigthtness_data(self):
         self.result = self.resistance_value()
+        if self.result == None:
+            self.result = 0
         print('get_birthgtness : ', self.result)
 
     def return_brigthtness(self):
