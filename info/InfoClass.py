@@ -64,9 +64,10 @@ class Information:
         return self._alarm_time
 
     # 알람 시간 변경자 
-    def set_alarm(self, flag, time = [0,0,0]):
-        self._alarm_flag = flag
-        self._alarm_time = time
+    def set_alarm(self, hour, min):
+        self._alarm_flag = True
+        self._alarm_time['hour'] = hour
+        self._alarm_time['minute'] = min 
 
     # 요일 구해주는 함수
     def __set_weekday(index):

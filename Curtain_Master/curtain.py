@@ -76,25 +76,32 @@ class Curtain():
 
         # 커튼을 열어라 인데
         if flag is False:
+            print('Operation flag : open')
             # 커튼이 닫쳐 있으면 커튼을 열어라
             if self._curtain_flag is False:
-                self._motor.pull_motor()
+                print("Open")
+                thread = threading.Thread(target=self._motor.pull_motor)
+                thread.start()
+                #self._motor.pull_motor()
                 self._curtain_flag = True
                 self._set_history()
             else:
                 return
         # 닫아라 인데
         else:
+            print('Operation flag : close')
             # 열려있으면 닫아라
             if self._curtain_flag is True:
-                self._motor.push_motor()
+                print('Close')
+                thread = threading.Thread(target=self._motor.push_motor)
+                thread.start()
+                #self._motor.push_motor()
                 self._curtain_flag = False
                 self._set_history()
             else:
                 return
         return
             
-
 
     def _set_history(self):
         t = self.p_info.get_time()
