@@ -5,7 +5,7 @@ class Curtain():
     def __init__(self, info_master):
         self._photoresist = CM.Photoresistor()
         self._motor = CM.Motor()
-        self._curtain_flag = False # True일 때 걷어진 상태 
+        self._curtain_flag = True # True일 때 걷어진 상태 
         self._brightness = 0
         self.p_info= info_master
         self.hitory = {'hour':0,

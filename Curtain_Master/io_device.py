@@ -47,11 +47,9 @@ class Photoresistor:
 
 
     def get_brigthtness_data(self):
-        print('get_birthgtness')
-        #result = self.resistance_value()
-        # 전처리 필요하면 전처리
-        #return result
-        return 0
+        result = self.resistance_value()
+        print('get_birthgtness : ', result)
+        return result
 
 class Led:
     def __init__(self):
