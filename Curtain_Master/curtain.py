@@ -50,7 +50,7 @@ class Curtain():
             print('Operation flag : open')
             if self._curtain_flag is False:
                 print("Open")
-                thread = threading.Thread(target=self._motor.pull_motor())
+                thread = threading.Thread(target=self._motor.pull_motor)
                 thread.start()
                 #self._motor.pull_motor()
                 self.change_curtain_flag()
@@ -62,7 +62,7 @@ class Curtain():
             print('Operation flag : close')
             if self._curtain_flag is True:
                 print('Close')
-                thread = threading.Thread(target=self._motor.push_motor())
+                thread = threading.Thread(target=self._motor.push_motor)
                 thread.start()
                 #self._motor.push_motor()
                 self.change_curtain_flag()
