@@ -38,7 +38,7 @@ def main():
     ledOff.restype = None
     #---------------------------------
     while True:    
-        pull()
+        print(resist_value())
 
 if __name__ == '__main__':
     main()

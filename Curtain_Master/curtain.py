@@ -35,7 +35,7 @@ class Curtain():
     def check_birghtness(self):
         print('history : ', self.history)
         # 최소 30분에 한번씩 동작할것  
-        if self.p_info.time_difference(self.history) < 30:
+        if self.p_info.time_difference(self.history) < 10:
             print('not yet')
             return
         
