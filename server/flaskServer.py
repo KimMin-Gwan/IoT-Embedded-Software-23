@@ -23,8 +23,8 @@ class Server():
         # 웹에서 데이터를 알람 시간 설정을 받아옴
         @self.app.route("/post", methods=['POST'])
         def post():
-            hour = request.form['time']
-            minute = request.form['flag']
+            hour = request.form['hour']
+            minute = request.form['minute']
             print('hour : ', hour)
             print('minute : ', minute)
             self.info.set_alarm(hour, minute)
