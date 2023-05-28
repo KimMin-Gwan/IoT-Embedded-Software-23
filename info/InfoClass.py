@@ -103,6 +103,8 @@ class Information:
         # 시간을 초로 변환
         total_seconds1 = hour1 * 3600 + minute1 * 60 + second1
         total_seconds2 = hour2 * 3600 + minute2 * 60 + second2
+        print('total sec1 :', total_seconds1)
+        print('total sec2 :', total_seconds2)
 
         # 두 시간의 차이 계산
         difference_seconds = abs(total_seconds1 - total_seconds2)

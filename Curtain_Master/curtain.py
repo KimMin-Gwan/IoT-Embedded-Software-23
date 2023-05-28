@@ -33,6 +33,7 @@ class Curtain():
     # 멀티스레드를 사용해야될 수 있음
     # 모터가 움직이는 동안 모든 시스템이 정지해있을 수도 있기때문
     def check_birghtness(self):
+        print('history : ', self.history)
         # 최소 30분에 한번씩 동작할것  
         if self.p_info.time_difference(self.history) < 30:
             print('not yet')
