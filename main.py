@@ -1,11 +1,13 @@
 import server
 # 4. 서버 클래스
 import LCD
+from LCD import display_lcd
 # 5. L2C LCD 클래스
 import info
 # 6. 정보 클래스
 import time
 import threading
+
 
 from Curtain_Master import Curtain, Led
 # 1. 조도 센서 클래스
@@ -13,7 +15,7 @@ from Curtain_Master import Curtain, Led
 # 3. 모터 조작 클래스
 
 # 메인 클래스 지우고 sequnce 메인 펑션을 사용
-def mainLoop(info_master, curtain_master):
+def mainLoop(info_master, curtain_master, my_lcd):
     #  >>>>>>>>  메인 루프   <<<<<<<<<<<<
     """
     수도코드 
@@ -43,6 +45,8 @@ def mainLoop(info_master, curtain_master):
         print("-----------------------------")
         info_master()
 
+        
+        display_lcd(info_master, my_lcd)
         flag = 'None'
         curtain_master.check_birghtness()
         flag = info_master.get_motor_flag()
@@ -69,12 +73,12 @@ def main():
     # >>>>>>>   초기화  <<<<<<<<<<<<<
     info_master = info.Information()  #현재 상태 클래스  - 핵심
     curtain_master = Curtain(info_master)  # 커튼 조작 클래스 - 디바이스 드라이버 구현
+    mylcd = LCD.I2C_LCD_driver.lcd() # LCD 조작 클래스  - 파이썬에서 동작
     #led_master = Led()          # led 조작 클래스  - 디바이스 드라이버 구현
-    #lcd_master = LCD.L2C_LCD()  # LCD 조작 클래스  - 파이썬에서 동작
     flask_server = server.Server(info_master) 
     # flask 클래스  - 멀티 스래딩
     print('Now Ready')
-    args = (info_master, curtain_master)
+    args = (info_master, curtain_master, mylcd)
     thread = threading.Thread(target = mainLoop, args=args)
     thread.start()
     time.sleep(2)
