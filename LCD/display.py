@@ -1,4 +1,4 @@
-import I2C_LCD_driver
+from LCD import I2C_LCD_driver
 from time import *
 
 def change_string(date, time):
