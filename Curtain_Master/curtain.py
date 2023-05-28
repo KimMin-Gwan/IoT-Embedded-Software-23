@@ -41,8 +41,11 @@ class Curtain():
         
         self._photoresist.get_brigthtness_data()
         self._brightness = self._photoresist.return_brigthtness()
-
-        if self._brightness > CM.PATIENCE:
+        # 어둡다 == 1
+        # 1 == 닫는다.
+        # 밝다 == 0
+        # 0 == 연다.
+        if self._brightness != CM.PATIENCE:
             print('Operation flag : open')
             if self._curtain_flag is False:
                 print("Open")
