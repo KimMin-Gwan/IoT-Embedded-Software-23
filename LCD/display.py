@@ -17,7 +17,7 @@ def change_string(date, time, flag):
         s_flag = "Off"
 
     string_date = year + "/" + month + "/" + day +"/"+ week
-    string_time = hour + ":" + min + ":" + sec + " Alarm/" +s_flag
+    string_time = hour + ":" + min + ":" + sec + " Alm/" +s_flag
     return string_date, string_time
 
 
