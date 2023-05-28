@@ -1,4 +1,4 @@
-#import server
+import server
 # 4. 서버 클래스
 import LCD
 # 5. L2C LCD 클래스
@@ -21,13 +21,11 @@ def main():
     curtain_master = Curtain(info_master)  # 커튼 조작 클래스 - 디바이스 드라이버 구현
     #led_master = Led()          # led 조작 클래스  - 디바이스 드라이버 구현
     #lcd_master = LCD.L2C_LCD()  # LCD 조작 클래스  - 파이썬에서 동작
-    """
     flask_server = server.Server(info_master,
-                                 curtain_master,
-                                 led_master) 
+                                 curtain_master
+                                 ) 
     # flask 클래스  - 멀티 스래딩
     flask_server.run_server()
-    """
     print('Now Ready')
 
     #  >>>>>>>>  메인 루프   <<<<<<<<<<<<
