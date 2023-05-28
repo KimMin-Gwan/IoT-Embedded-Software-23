@@ -24,11 +24,11 @@ class Motor:
 
     def pull_motor(self):
         print('pull')
-        #self.pull
+        self.pull
 
     def push_motor(self):
         print('push')
-        #self.push
+        self.push
     
 
 class Photoresistor:
