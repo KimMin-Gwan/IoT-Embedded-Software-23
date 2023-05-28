@@ -114,7 +114,7 @@ class Information:
         print('diff : ', difference_seconds)
         print('diff_m  : ', difference_minute)
 
-        return difference_minute 
+        return difference_seconds
 
 
 
