@@ -65,11 +65,11 @@ def main():
                                  curtain_master
                                  ) 
     # flask 클래스  - 멀티 스래딩
-    flask_server.run_server()
     print('Now Ready')
     args = (info_master, curtain_master)
     thread = threading.Thread(target = mainLoop, args=args)
     thread.start()
+    flask_server.run_server()
 
         
 if __name__ == "__main__":
