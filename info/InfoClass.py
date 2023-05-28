@@ -48,6 +48,9 @@ class Information:
     def get_time(self):
         return self._nowTime
     
+    def turn_off_alarm(self):
+        self._alarm_flag = False
+    
     # 접근자
     def get_alarm_flag(self):
         return self._alarm_flag
@@ -55,8 +58,8 @@ class Information:
     def is_alarm_time(self):
         if self._nowTime['hour'] == self._alarm_time['hour']:
             if self._nowTime['minute'] == self._alarm_time['minute']:
-                if self._nowTime['second'] == self._alarm_time['second']:
-                    return True
+                self._alarm_flag = False
+                return True
 
         return False
 
@@ -74,21 +77,21 @@ class Information:
     def __set_weekday(index):
         index = int(index)
         if index == 0:
-            return "Monday"
+            return "Mon"
         elif index == 1:
-            return "Tuesday"
+            return "Tue"
         elif index == 2:
-            return "Wednesday"
+            return "Wed"
         elif index == 3:
-            return "Thursday"
+            return "Thu"
         elif index == 4:
-            return "Friday"
+            return "Fri"
         elif index == 5:
-            return "Saturday"
+            return "Sat"
         elif index == 6:
-            return "Sunday"
+            return "Sun"
         else:
-            return "Something Wrong"
+            return "???"
     def set_sec():
         pass
 
