@@ -5,7 +5,7 @@ import LCD
 import info
 # 6. 정보 클래스
 import time
-
+import threading
 
 from Curtain_Master import Curtain, Led
 # 1. 조도 센서 클래스
@@ -25,7 +25,8 @@ def main():
                                  curtain_master
                                  ) 
     # flask 클래스  - 멀티 스래딩
-    flask_server.run_server()
+    thread = threading.Thread(target = flask_server.run_server)
+    thread.start()
     print('Now Ready')
 
     #  >>>>>>>>  메인 루프   <<<<<<<<<<<<
@@ -68,6 +69,8 @@ def main():
         # 조작이 되면 True가 반환됨
         
         time.sleep(1)
+
+    thread.join()
         
 if __name__ == "__main__":
     main()
