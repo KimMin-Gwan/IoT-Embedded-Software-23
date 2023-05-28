@@ -11,7 +11,7 @@ def change_string(date, time):
     sec = str(time['second'])
 
     string_date = year + "/" + month + "/" + day +"/"+ week
-    string_time = hour + ":" + month + ":" + day
+    string_time = hour + ":" + min + ":" + sec 
     return string_date, string_time
 
 
