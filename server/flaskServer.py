@@ -34,7 +34,6 @@ class Server():
         @self.app.route("/open")
         def open_curtain():
             self.info.set_motor_flag('Push')
-            self.curtain.move_curtain(False)
             return render_template('index.html')
             
         #커튼을 열어라
