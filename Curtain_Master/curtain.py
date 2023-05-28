@@ -43,17 +43,25 @@ class Curtain():
         self._brightness = self._photoresist.return_brigthtness()
 
         if self._brightness > CM.PATIENCE:
+            print('Operation flag : open')
             if self._curtain_flag is False:
+                print("Open")
                 self._motor.pull_motor()
                 self.change_curtain_flag()
                 self._set_history()
                 return True
+            else:
+                print("already opened")
         else:
+            print('Operation flag : close')
             if self._curtain_flag is True:
+                print('Close')
                 self._motor.push_motor()
                 self.change_curtain_flag()
                 self._set_history()
                 return True
+            else:
+                print('already closed')
         return False
             
     def move_curtain(self, flag):
