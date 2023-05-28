@@ -1,4 +1,5 @@
 import Curtain_Master as CM
+import threading
 
 class Curtain():
     # 생성자
@@ -49,7 +50,9 @@ class Curtain():
             print('Operation flag : open')
             if self._curtain_flag is False:
                 print("Open")
-                self._motor.pull_motor()
+                thread = threading.Thread(target=self._motor.pull_motor())
+                thread.start()
+                #self._motor.pull_motor()
                 self.change_curtain_flag()
                 self._set_history()
                 return True
@@ -59,7 +62,9 @@ class Curtain():
             print('Operation flag : close')
             if self._curtain_flag is True:
                 print('Close')
-                self._motor.push_motor()
+                thread = threading.Thread(target=self._motor.push_motor())
+                thread.start()
+                #self._motor.push_motor()
                 self.change_curtain_flag()
                 self._set_history()
                 return True
