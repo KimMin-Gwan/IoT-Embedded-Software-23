@@ -1,7 +1,7 @@
 import server
 # 4. 서버 클래스
 import LCD
-from LCD import display_lcd
+from LCD import display_lcd, display_reset
 # 5. L2C LCD 클래스
 import info
 # 6. 정보 클래스
@@ -66,8 +66,10 @@ def mainLoop(info_master, curtain_master, my_lcd):
             continue  # 채도비교 안하고 알람에만 의존
         # 밝기 비교 및 조작 까지 포함된 함수
         # 조작이 되면 True가 반환됨
-        
         time.sleep(1)
+        display_reset(my_lcd)
+        time.sleep(0.001)
+        
 
 def main():
     # >>>>>>>   초기화  <<<<<<<<<<<<<
