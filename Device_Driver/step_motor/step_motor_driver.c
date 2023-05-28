@@ -30,6 +30,49 @@ static int sm_usage = 0;
 static void *sm_map;
 volatile unsigned *sm;
 
+// loopcnt만큼 정방향 회전
+static void run_sm(int loopcnt)
+{
+    int i;
+
+    for (i = 0; i < loopcnt; i++)
+    {
+        *(sm + 7) = (0x1 << SM_PIN_1);
+        *(sm + 10) = (0x1 << SM_PIN_2);
+        udelay(SPEED_DELAY);
+        *(sm + 7) = (0x1 << SM_PIN_3);
+        *(sm + 10) = (0x1 << SM_PIN_4);
+        udelay(SPEED_DELAY);
+        *(sm + 10) = (0x1 << SM_PIN_1);
+        *(sm + 7) = (0x1 << SM_PIN_2);
+        udelay(SPEED_DELAY);
+        *(sm + 10) = (0x1 << SM_PIN_3);
+        *(sm + 7) = (0x1 << SM_PIN_4);
+        udelay(SPEED_DELAY);
+    }
+}
+
+// loopcnt만큼 역방향 회전
+static void rev_run_sm(int loopcnt)
+{
+    int i;
+
+    for (i = 0; i < loopcnt; i++)
+    {
+        *(sm + 7) = (0x1 << SM_PIN_3);
+        *(sm + 10) = (0x1 << SM_PIN_4);
+        udelay(SPEED_DELAY);
+        *(sm + 7) = (0x1 << SM_PIN_1);
+        *(sm + 10) = (0x1 << SM_PIN_2);
+        udelay(SPEED_DELAY);
+        *(sm + 10) = (0x1 << SM_PIN_3);
+        *(sm + 7) = (0x1 << SM_PIN_4);
+        udelay(SPEED_DELAY);
+        *(sm + 10) = (0x1 << SM_PIN_1);
+        *(sm + 7) = (0x1 << SM_PIN_2);
+        udelay(SPEED_DELAY);
+    }
+}
 
 static int sm_open(struct inode *minode, struct file *mfile)
 {
@@ -144,3 +187,4 @@ module_init(sm_init);
 module_exit(sm_exit);
 
 MODULE_LICENSE("GPL");
+
