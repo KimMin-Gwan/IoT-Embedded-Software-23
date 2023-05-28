@@ -17,18 +17,18 @@ from Curtain_Master import Curtain, Led
 
 def main():
     # >>>>>>>   초기화  <<<<<<<<<<<<<
-    curtain_master = Curtain()  # 커튼 조작 클래스 - 디바이스 드라이버 구현
-    led_master = Led()          # led 조작 클래스  - 디바이스 드라이버 구현
-    lcd_master = LCD.L2C_LCD()  # LCD 조작 클래스  - 파이썬에서 동작
     info_master = info.Information()  #현재 상태 클래스  - 핵심
+    curtain_master = Curtain(info_master)  # 커튼 조작 클래스 - 디바이스 드라이버 구현
+    #led_master = Led()          # led 조작 클래스  - 디바이스 드라이버 구현
+    #lcd_master = LCD.L2C_LCD()  # LCD 조작 클래스  - 파이썬에서 동작
+    """
     flask_server = server.Server(info_master,
                                  curtain_master,
                                  led_master) 
     # flask 클래스  - 멀티 스래딩
     flask_server.run_server()
-
+    """
     print('Now Ready')
-    lcd_master.led_green_on() # 녹색 불 켜주기
 
     #  >>>>>>>>  메인 루프   <<<<<<<<<<<<
     """
@@ -56,20 +56,16 @@ def main():
 
     while(True):
         info_master.update_time()
+        print("-----------------------------")
+        info_master()
 
         if info_master.get_alarm_flag():
-            led_master.led_red_on()
             if info_master.is_alarm_time():
                 curtain_master.move_curtain(True)
                 curtain_master.change_curtain_flag()
             continue  # 채도비교 안하고 알람에만 의존
-        else:
-            led_master.led_red_off()
-
         # 밝기 비교 및 조작 까지 포함된 함수
         # 조작이 되면 True가 반환됨
-        if curtain_master.check_birghtness(led_master):
-            led_master.led_blue_off()
         
         time.sleep(1)
         
@@ -83,5 +79,5 @@ if __name__ == "__main__":
 1. 열리고 닫히는 트리거를 생성할때 마지막으로 동작후 30분 지났어야함
 
 / 점검해야되는 부분
-1. 
+1. 디바이스 드라이버가 정상적으로 동작하는지 알아봐야함
 """
