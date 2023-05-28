@@ -26,7 +26,7 @@ def display_lcd(info, mylcd):
     raw_time = info.get_time()
     flag = info.get_alarm_flag()
 
-    date, time = change_string(raw_date, raw_time)
+    date, time = change_string(raw_date, raw_time, flag)
 
     mylcd.lcd_display_string(date,1)
     mylcd.lcd_display_string(time,2)
