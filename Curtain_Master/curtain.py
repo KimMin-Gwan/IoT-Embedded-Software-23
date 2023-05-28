@@ -46,13 +46,13 @@ class Curtain():
             if self._curtain_flag is False:
                 self._motor.pull_motor()
                 self.change_curtain_flag()
-                self.history = self.p_info.get_time()
+                self._set_history()
                 return True
         else:
             if self._curtain_flag is True:
                 self._motor.push_motor()
                 self.change_curtain_flag()
-                self.history = self.p_info.get_time()
+                self._set_history()
                 return True
         return False
             
@@ -64,7 +64,7 @@ class Curtain():
             if self._curtain_flag is False:
                 self._motor.pull_motor()
                 self._curtain_flag = True
-                self.history = self.p_info.get_time()
+                self._set_history()
             else:
                 return
         # 닫아라 인데
@@ -73,11 +73,21 @@ class Curtain():
             if self._curtain_flag is True:
                 self._motor.push_motor()
                 self._curtain_flag = False
-                self.history = self.p_info.get_time()
+                self._set_history()
             else:
                 return
         return
             
 
+
+    def _set_history(self):
+        t = self.p_info.get_time()
+        hour = t['hour']
+        min = t['minute']
+        sec = t['second']
+
+        self.history['hour'] = hour
+        self.history['minute'] = min 
+        self.history['second'] = sec
 
 
