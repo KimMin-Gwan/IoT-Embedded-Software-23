@@ -40,7 +40,7 @@ class Photoresistor:
             raise OSError()
         
         # 초기설정
-        self.resistance_value = self.c_module.get_resistance
+        self.resistance_value = self.c_module.getBrightness
         self.resistance_value.argtypes = []
         self.resistance_value.restype = None
         print('Photoresistor init complete')
