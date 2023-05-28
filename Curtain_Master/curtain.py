@@ -33,21 +33,25 @@ class Curtain():
     # 멀티스레드를 사용해야될 수 있음
     # 모터가 움직이는 동안 모든 시스템이 정지해있을 수도 있기때문
     def check_birghtness(self, led_master):
+        # 최소 30분에 한번씩 동작할것  
+        if self.p_info.time_difference(self.history) < 30:
+            return
+
         if self._brightness > CM.PATIENCE:
             if self._curtain_flag is False:
                 self._motor.pull_motor()
                 self.change_curtain_flag()
+                self.hitory = self.p_info.get_time()
                 return True
         else:
             if self._curtain_flag is True:
                 self._motor.push_motor()
                 self.change_curtain_flag()
+                self.hitory = self.p_info.get_time()
                 return True
         return False
             
     def move_curtain(self, flag):
-        if self.p_info.time_difference(self.history) < 30:
-            return
 
         # 커튼을 열어라 인데
         if flag is False:
@@ -55,6 +59,7 @@ class Curtain():
             if self._curtain_flag is False:
                 self._motor.pull_motor()
                 self._curtain_flag = True
+                self.hitory = self.p_info.get_time()
             else:
                 return
         # 닫아라 인데
@@ -63,6 +68,7 @@ class Curtain():
             if self._curtain_flag is True:
                 self._motor.push_motor()
                 self._curtain_flag = False
+                self.hitory = self.p_info.get_time()
             else:
                 return
         return

@@ -1,4 +1,4 @@
 PATIENCE = 50
 
-PATH = './../nunna/externApp.so'
+PATH = './../Device_Driver/temp/externApp.so'
 
