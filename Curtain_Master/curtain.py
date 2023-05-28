@@ -2,11 +2,16 @@ import Curtain_Master as CM
 
 class Curtain():
     # 생성자
-    def __init__(self):
-        self._photoresist = CM.Photosresistor()
+    def __init__(self, info_master):
+        self._photoresist = CM.Photoresistor()
         self._motor = CM.Motor()
         self._curtain_flag = False # True일 때 걷어진 상태 
         self._brightness = 0
+        self.p_info= info_master
+        self.hitory = {'hour':0,
+                       'minute':0,
+                       'second':0
+                            }
 
     # 밝기 조정자
     def set_brightness(self):
@@ -30,24 +35,25 @@ class Curtain():
     def check_birghtness(self, led_master):
         if self._brightness > CM.PATIENCE:
             if self._curtain_flag is False:
-                self._motor.pull()
+                self._motor.pull_motor()
                 self.change_curtain_flag()
-                led_master.led_blue_on()
                 return True
         else:
             if self._curtain_flag is True:
-                self._motor.push()
+                self._motor.push_motor()
                 self.change_curtain_flag()
-                led_master.led_blue_on()
                 return True
         return False
             
     def move_curtain(self, flag):
+        if self.p_info.time_difference(self.history) < 30:
+            return
+
         # 커튼을 열어라 인데
         if flag is False:
             # 커튼이 닫쳐 있으면 커튼을 열어라
             if self._curtain_flag is False:
-                self._motor.pull()
+                self._motor.pull_motor()
                 self._curtain_flag = True
             else:
                 return
@@ -55,7 +61,7 @@ class Curtain():
         else:
             # 열려있으면 닫아라
             if self._curtain_flag is True:
-                self._motor.push()
+                self._motor.push_motor()
                 self._curtain_flag = False
             else:
                 return
