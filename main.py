@@ -43,8 +43,18 @@ def mainLoop(info_master, curtain_master):
         print("-----------------------------")
         info_master()
 
+        flag = 'None'
         curtain_master.check_birghtness()
-
+        flag = info_master.get_motor_flag()
+        if flag == 'Pull':
+            curtain_master.move_curtain(False)
+            info_master.set_motor_flag('None')
+            continue
+        elif flag == 'Push':
+            curtain_master.move_curtain(True)
+            info_master.set_motor_flag('None')
+            continue
+            
         if info_master.get_alarm_flag():
             if info_master.is_alarm_time():
                 curtain_master.move_curtain(True)
@@ -61,19 +71,17 @@ def main():
     curtain_master = Curtain(info_master)  # 커튼 조작 클래스 - 디바이스 드라이버 구현
     #led_master = Led()          # led 조작 클래스  - 디바이스 드라이버 구현
     #lcd_master = LCD.L2C_LCD()  # LCD 조작 클래스  - 파이썬에서 동작
-    flask_server = server.Server(info_master,
-                                 curtain_master
-                                 ) 
+    flask_server = server.Server(info_master) 
     # flask 클래스  - 멀티 스래딩
     print('Now Ready')
     args = (info_master, curtain_master)
     thread = threading.Thread(target = mainLoop, args=args)
     thread.start()
-    time.sleep(3)
     flask_server.run_server()
 
         
 if __name__ == "__main__":
     main()
 
+# 내부에서 바로 동작하는게 아니고 파라미터 넘기는걸로 하자.
 

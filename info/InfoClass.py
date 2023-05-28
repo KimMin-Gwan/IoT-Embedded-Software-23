@@ -19,6 +19,7 @@ class Information:
         self.update_time()
         self._alarm_flag = False
         self._alarm_time = info.TIME
+        self.m_flag = 'init'
     
     # 호출함수
     def __call__(self):
@@ -113,6 +114,12 @@ class Information:
         print('diff : ', difference_seconds)
 
         return difference_seconds
+
+    def set_motor_flag(self, state):
+        self.m_flag = state
+
+    def get_motor_flag(self):
+        return self.m_flag
 
 
 
