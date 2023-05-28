@@ -18,7 +18,7 @@ class Information:
         self._nowTime= info.TIME
         self.update_time()
         self._alarm_flag = False
-        self._alarm_time = info.TIME
+        self._alarm_time = {'hour':0, 'minute': 0}
         self.m_flag = 'init'
     
     # 호출함수
