@@ -25,14 +25,14 @@ class Motor:
     def pull_motor(self):
         print('pull')
         i = 0
-        while i < 50:
+        while i < 100:
             i += 1
             self.pull()
 
     def push_motor(self):
         print('push')
         i = 0
-        while i < 50:
+        while i < 100:
             i += 1
             self.push()
     
