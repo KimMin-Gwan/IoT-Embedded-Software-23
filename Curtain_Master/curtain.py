@@ -36,6 +36,9 @@ class Curtain():
         # 최소 30분에 한번씩 동작할것  
         if self.p_info.time_difference(self.history) < 30:
             return
+        
+        self._photoresist.get_brigthtness_data()
+        self._brightness = self._photoresist.return_brigthtness()
 
         if self._brightness > CM.PATIENCE:
             if self._curtain_flag is False:

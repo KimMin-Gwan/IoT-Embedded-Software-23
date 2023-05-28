@@ -44,12 +44,15 @@ class Photoresistor:
         self.resistance_value.argtypes = []
         self.resistance_value.restype = None
         print('Photoresistor init complete')
+        self.result = 0
 
 
     def get_brigthtness_data(self):
-        result = self.resistance_value()
-        print('get_birthgtness : ', result)
-        return result
+        self.result = self.resistance_value()
+        print('get_birthgtness : ', self.result)
+
+    def return_brigthtness(self):
+        return self.result
 
 class Led:
     def __init__(self):
