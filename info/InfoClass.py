@@ -109,6 +109,7 @@ class Information:
 
         # 초를 시, 분, 초로 변환
         difference_minute = (difference_seconds % 3600) // 60
+        print('diff : ', difference_minute)
 
         return difference_minute
 
