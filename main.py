@@ -1,4 +1,4 @@
-import server
+#import server
 # 4. 서버 클래스
 import LCD
 # 5. L2C LCD 클래스
