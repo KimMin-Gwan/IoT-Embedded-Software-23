@@ -89,5 +89,27 @@ class Information:
     def set_sec():
         pass
 
+    def time_difference(self, history):
+        # 시간 정보 추출
+        hour1 = self._nowTime['hour']
+        minute1 = self._nowTime['minute']
+        second1= self._nowTime['second']
+
+        hour2 = history['hour']
+        minute2 = history['minute']
+        second2= history['second']
+
+        # 시간을 초로 변환
+        total_seconds1 = hour1 * 3600 + minute1 * 60 + second1
+        total_seconds2 = hour2 * 3600 + minute2 * 60 + second2
+
+        # 두 시간의 차이 계산
+        difference_seconds = abs(total_seconds1 - total_seconds2)
+
+        # 초를 시, 분, 초로 변환
+        difference_minute = (difference_seconds % 3600) // 60
+
+        return difference_minute
+
 
 
