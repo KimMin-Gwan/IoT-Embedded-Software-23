@@ -13,22 +13,7 @@ from Curtain_Master import Curtain, Led
 # 3. 모터 조작 클래스
 
 # 메인 클래스 지우고 sequnce 메인 펑션을 사용
-
-
-def main():
-    # >>>>>>>   초기화  <<<<<<<<<<<<<
-    info_master = info.Information()  #현재 상태 클래스  - 핵심
-    curtain_master = Curtain(info_master)  # 커튼 조작 클래스 - 디바이스 드라이버 구현
-    #led_master = Led()          # led 조작 클래스  - 디바이스 드라이버 구현
-    #lcd_master = LCD.L2C_LCD()  # LCD 조작 클래스  - 파이썬에서 동작
-    flask_server = server.Server(info_master,
-                                 curtain_master
-                                 ) 
-    # flask 클래스  - 멀티 스래딩
-    thread = threading.Thread(target = flask_server.run_server)
-    thread.start()
-    print('Now Ready')
-
+def mainLoop(info_master, curtain_master):
     #  >>>>>>>>  메인 루프   <<<<<<<<<<<<
     """
     수도코드 
@@ -70,17 +55,24 @@ def main():
         
         time.sleep(1)
 
-    thread.join()
+def main():
+    # >>>>>>>   초기화  <<<<<<<<<<<<<
+    info_master = info.Information()  #현재 상태 클래스  - 핵심
+    curtain_master = Curtain(info_master)  # 커튼 조작 클래스 - 디바이스 드라이버 구현
+    #led_master = Led()          # led 조작 클래스  - 디바이스 드라이버 구현
+    #lcd_master = LCD.L2C_LCD()  # LCD 조작 클래스  - 파이썬에서 동작
+    flask_server = server.Server(info_master,
+                                 curtain_master
+                                 ) 
+    # flask 클래스  - 멀티 스래딩
+    flask_server.run_server()
+    print('Now Ready')
+    args = (info_master, curtain_master)
+    thread = threading.Thread(target = mainLoop, args=args)
+    thread.start()
+
         
 if __name__ == "__main__":
     main()
 
 
-"""
-해야되는일 
-/ 수정해야되는 부분
-1. 열리고 닫히는 트리거를 생성할때 마지막으로 동작후 30분 지났어야함
-
-/ 점검해야되는 부분
-1. 디바이스 드라이버가 정상적으로 동작하는지 알아봐야함
-"""
