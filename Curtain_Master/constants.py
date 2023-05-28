@@ -1,4 +1,4 @@
 PATIENCE = 50
 
-PATH = './../Device_Driver/temp/externApp.so'
+PATH = './Device_Driver/temp/externApp.so'
 
