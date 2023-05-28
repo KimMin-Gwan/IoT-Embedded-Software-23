@@ -1,4 +1,5 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template
+from flask import request
 
 app = Flask(__name__)
 
@@ -13,7 +14,10 @@ def index():
         print(hour,min)
         return 'POST: {}시 {}분'.format(hour,min)
     return render_template('index.html')
-#열기
+@app.route('/mypage')
+def mypage():
+    return 'this is my page!'
+
 @app.route('/open')
 def button_op():
     print('open')
@@ -23,6 +27,15 @@ def button_op():
 def button_cl():
     print('close')
     return 'close'
+
+@app.route("/post", methods=['POST'])
+def post():
+    hour = request.form['hour']
+    minute = request.form['minute']
+    print('hour : ', hour)
+    print('minute : ', minute)
+    return render_template('index.html')
+
 
 if __name__ == '__main__':
     app.run(port=5001,debug=True)

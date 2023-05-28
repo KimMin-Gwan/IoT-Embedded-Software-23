@@ -5,7 +5,8 @@ class Motor:
     def __init__(self):
         try:
             self.c_module = ctypes.cdll.LoadLibrary(PATH)
-        except:
+        except Exception as e:
+            print(e)
             raise OSError()
 
         # 함수 주소 포인터
@@ -19,37 +20,55 @@ class Motor:
         # c에서 제작한 함수 리턴 형식 지정
         self.push.argtypes = []
         self.push.argtypes = None
+        print('Motor init complete')
 
     def pull_motor(self):
-        self.pull()
+        print('pull')
+        i = 0
+        while i < 100:
+            i += 1
+            self.pull()
 
     def push_motor(self):
-        self.push()
+        print('push')
+        i = 0
+        while i < 100:
+            i += 1
+            self.push()
     
 
 class Photoresistor:
     def __init__(self):
         try:
             self.c_module = ctypes.cdll.LoadLibrary(PATH)
-        except:
+        except Exception as e:
+            print(e)
             raise OSError()
         
         # 초기설정
         self.resistance_value = self.c_module.getBrightness
+        self.resistance_value = self.c_module.getBrightness
         self.resistance_value.argtypes = []
-        self.resistance_value.restype = ctypes.c_int 
+        self.resistance_value.restype = ctypes.c_int
+        print('Photoresistor init complete')
+        self.result = 0
 
 
     def get_brigthtness_data(self):
-        result = self.resistance_value()
-        # 전처리 필요하면 전처리
-        return result
+        self.result = self.resistance_value()
+        if self.result == None:
+            self.result = 1
+        print('get_birthgtness : ', self.result)
+
+    def return_brigthtness(self):
+        return self.result
 
 class Led:
     def __init__(self):
         try:
             self.c_module = ctypes.cdll.LoadLibrary(PATH)
-        except:
+        except Exception as e:
+            print(e)
             raise OSError()
         
         self.ledOn = self.c_module.ledOn
@@ -60,9 +79,12 @@ class Led:
 
         self.ledOff.argtypes = []
         self.ledOff.restype = None
+        print('led init complete')
 
     def led_on(self):
-        self.ledOn()
+        print('ledON')
+        #self.ledOn()
 
     def led_off(self):
-        self.ledOff()
+        print('led_off')
+        #self.ledOff()

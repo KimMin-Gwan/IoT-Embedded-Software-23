@@ -1,0 +1,1 @@
+cmd_/root/raspberry/app/IoT-Embedded-Software-23/Device_Driver/step_motor/step_motor_driver.mod := printf '%s\n'   step_motor_driver.o | awk '!x[$$0]++ { print("/root/raspberry/app/IoT-Embedded-Software-23/Device_Driver/step_motor/"$$0) }' > /root/raspberry/app/IoT-Embedded-Software-23/Device_Driver/step_motor/step_motor_driver.mod

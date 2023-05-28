@@ -6,7 +6,8 @@ if 'Windows' == platform.system() :     # 윈도우 운영체제에서 c 모듈 
     path = './testC2Py.dll'
     c_module = ctypes.windll.LoadLibrary(path)
 elif 'Linux' == platform.system() :     # 리눅스 운영체제에서 c 모듈 로드
-    path = "./libc_module.so"
+    #path = "./libc_module.so"
+    path = "./../Device_Driver/temp/externApp.so"
     c_module = ctypes.cdll.LoadLibrary(path)
 else :
     raise OSError()

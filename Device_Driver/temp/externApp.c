@@ -22,7 +22,7 @@
 extern "C"
 {
 	// led 켜기
-	Export void ledOn()
+	EXPORT void ledOn()
 	{
 		int fd = open(LED_FILE_NAME, O_RDWR);
 
@@ -40,11 +40,10 @@ extern "C"
 	}
 
 	// led 끄기
-	Export void ledOff()
+	EXPORT void ledOff()
 	{
 		int fd = open(LED_FILE_NAME, O_RDWR);
 
-		fd = open(LED_FILE_NAME, O_RDWR);
 		if (fd < 0)
 		{
 			fprintf(stderr, "Device Open Error : %s\n", LED_FILE_NAME);
@@ -59,26 +58,23 @@ extern "C"
 	}
 
 	// 스텝모터 정방향 회전
-	Export void stepMotorCW()
+	EXPORT void stepMotorCW()
 	{
 		int fd = open(SM_FILE_NAME, O_RDWR);
 
-		fd = open(SM_FILE_NAME, O_RDWR);
 		if (fd < 0)
 		{
 			fprintf(stderr, "Device Open Error : %s\n", SM_FILE_NAME);
 			return;
 		}
-
 		char sm_control = 1;
 		write(fd, &sm_control, sizeof(char));
-
 		close(fd);
 		return;
 	}
 
 	// 스텝모터 역방향 회전
-	Export void stepMotorCCW()
+	EXPORT void stepMotorCCW()
 	{
 		int fd = open(SM_FILE_NAME, O_RDWR);
 
@@ -96,7 +92,7 @@ extern "C"
 	}
 
 	// 조도센서 밝기 가져오기
-	Export int getBrightness()
+	EXPORT int getBrightness()
 	{
 		int fd = open(PHOTOREGISTER_FILE_NAME, O_RDWR);
 
@@ -114,20 +110,20 @@ extern "C"
 	}
 
 	// 조도센서 테스트용 (조도센서 값 출력)
-    EXPORT void printPhotoregisterValue()
-    {
-        int fd = open(PHOTOREGISTER_FILE_NAME, O_RDWR);
-        if (fd < 0)
-        {
-            fprintf(stderr, "Can't open %s\n", LED_FILE_NAME);
-            return;
-        }
+	EXPORT void printPhotoregisterValue()
+	{
+		int fd = open(PHOTOREGISTER_FILE_NAME, O_RDWR);
+		if (fd < 0)
+		{
+			fprintf(stderr, "Can't open %s\n", LED_FILE_NAME);
+			return;
+		}
 
-        char value;
-        read(fd, &value, sizeof(char));
-        fprintf("Value : %d", value);
+		char value;
+		read(fd, &value, sizeof(char));
+		printf("Value : %s", value);
 
-        close(fd);
-        return;
-    }
+		close(fd);
+		return;
+	}
 }

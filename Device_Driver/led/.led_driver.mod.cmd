@@ -1,0 +1,1 @@
+cmd_/root/raspberry/app/IoT-Embedded-Software-23/Device_Driver/led/led_driver.mod := printf '%s\n'   led_driver.o | awk '!x[$$0]++ { print("/root/raspberry/app/IoT-Embedded-Software-23/Device_Driver/led/"$$0) }' > /root/raspberry/app/IoT-Embedded-Software-23/Device_Driver/led/led_driver.mod

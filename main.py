@@ -1,10 +1,12 @@
 import server
 # 4. 서버 클래스
 import LCD
+from LCD import display_lcd, display_reset
 # 5. L2C LCD 클래스
 import info
 # 6. 정보 클래스
 import time
+import threading
 
 
 from Curtain_Master import Curtain, Led
@@ -28,6 +30,7 @@ def main():
     flask_server.run_server()
 
     print('Now Ready')
+    lcd_master.led_green_on() # 녹색 불 켜주기
 
     #  >>>>>>>>  메인 루프   <<<<<<<<<<<<
     """
@@ -55,22 +58,53 @@ def main():
 
     while(True):
         info_master.update_time()
+        print("-----------------------------")
+        info_master()
 
+        
+        display_lcd(info_master, my_lcd)
+        flag = 'None'
+        curtain_master.check_birghtness()
+        flag = info_master.get_motor_flag()
+        if flag == 'Pull':
+            curtain_master.move_curtain(False)
+            info_master.set_motor_flag('None')
+            continue
+        elif flag == 'Push':
+            curtain_master.move_curtain(True)
+            info_master.set_motor_flag('None')
+            continue
+            
         if info_master.get_alarm_flag():
-            led_master.led_red_on()
             if info_master.is_alarm_time():
                 curtain_master.move_curtain(True)
                 curtain_master.change_curtain_flag()
             continue  # 채도비교 안하고 알람에만 의존
-        else:
-            led_master.led_red_off()
-
         # 밝기 비교 및 조작 까지 포함된 함수
         # 조작이 되면 True가 반환됨
-        if curtain_master.check_birghtness(led_master):
-            led_master.led_blue_off()
-        
         time.sleep(1)
+        display_reset(my_lcd)
+        time.sleep(0.001)
+        
+
+def main():
+    # >>>>>>>   초기화  <<<<<<<<<<<<<
+    info_master = info.Information()  #현재 상태 클래스  - 핵심
+    curtain_master = Curtain(info_master)  # 커튼 조작 클래스 - 디바이스 드라이버 구현
+    mylcd = LCD.I2C_LCD_driver.lcd() # LCD 조작 클래스  - 파이썬에서 동작
+    #led_master = Led()          # led 조작 클래스  - 디바이스 드라이버 구현
+    flask_server = server.Server(info_master) 
+    # flask 클래스  - 멀티 스래딩
+    print('Now Ready')
+    args = (info_master, curtain_master, mylcd)
+    thread = threading.Thread(target = mainLoop, args=args)
+    thread.start()
+    time.sleep(2)
+    flask_server.run_server()
+
         
 if __name__ == "__main__":
     main()
+
+# 내부에서 바로 동작하는게 아니고 파라미터 넘기는걸로 하자.
+

@@ -1,0 +1,1 @@
+cmd_/root/raspberry/app/IoT-Embedded-Software-23/Device_Driver/led/Module.symvers :=  sed 's/ko$$/o/'  /root/raspberry/app/IoT-Embedded-Software-23/Device_Driver/led/modules.order | scripts/mod/modpost -m -a    -o /root/raspberry/app/IoT-Embedded-Software-23/Device_Driver/led/Module.symvers -e -i Module.symvers -T - 

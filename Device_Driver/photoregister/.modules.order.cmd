@@ -1,0 +1,1 @@
+cmd_/root/raspberry/app/IoT-Embedded-Software-23/Device_Driver/photoregister/modules.order := {   echo /root/raspberry/app/IoT-Embedded-Software-23/Device_Driver/photoregister/photoregister_driver.ko; :; } > /root/raspberry/app/IoT-Embedded-Software-23/Device_Driver/photoregister/modules.order

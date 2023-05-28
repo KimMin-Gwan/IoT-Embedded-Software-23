@@ -18,7 +18,8 @@ class Information:
         self._nowTime= info.TIME
         self.update_time()
         self._alarm_flag = False
-        self._alarm_time = info.TIME
+        self._alarm_time = {'hour':0, 'minute': 0}
+        self.m_flag = 'init'
     
     # 호출함수
     def __call__(self):
@@ -47,6 +48,9 @@ class Information:
     def get_time(self):
         return self._nowTime
     
+    def turn_off_alarm(self):
+        self._alarm_flag = False
+    
     # 접근자
     def get_alarm_flag(self):
         return self._alarm_flag
@@ -54,8 +58,8 @@ class Information:
     def is_alarm_time(self):
         if self._nowTime['hour'] == self._alarm_time['hour']:
             if self._nowTime['minute'] == self._alarm_time['minute']:
-                if self._nowTime['second'] == self._alarm_time['second']:
-                    return True
+                self._alarm_flag = False
+                return True
 
         return False
 
@@ -64,30 +68,65 @@ class Information:
         return self._alarm_time
 
     # 알람 시간 변경자 
-    def set_alarm(self, flag, time = [0,0,0]):
-        self._alarm_flag = flag
-        self._alarm_time = time
+    def set_alarm(self, hour, min):
+        self._alarm_flag = True
+        self._alarm_time['hour'] = hour
+        self._alarm_time['minute'] = min 
 
     # 요일 구해주는 함수
     def __set_weekday(index):
-        if index is 0:
-            return "Monday"
-        elif index is 1:
-            return "Tuesday"
-        elif index is 2:
-            return "Wednesday"
-        elif index is 3:
-            return "Thursday"
-        elif index is 4:
-            return "Friday"
-        elif index is 5:
-            return "Saturday"
-        elif index is 6:
-            return "Sunday"
+        index = int(index)
+        if index == 0:
+            return "Mon"
+        elif index == 1:
+            return "Tue"
+        elif index == 2:
+            return "Wed"
+        elif index == 3:
+            return "Thu"
+        elif index == 4:
+            return "Fri"
+        elif index == 5:
+            return "Sat"
+        elif index == 6:
+            return "Sun"
         else:
-            return "Something Wrong"
+            return "???"
     def set_sec():
         pass
+
+    def time_difference(self, history):
+        # 시간 정보 추출
+        hour1 = self._nowTime['hour']
+        minute1 = self._nowTime['minute']
+        second1= self._nowTime['second']
+
+        hour2 = history['hour']
+        minute2 = history['minute']
+        second2= history['second']
+
+        try:
+            # 시간을 초로 변환
+            total_seconds1 = hour1 * 3600 + minute1 * 60 + second1
+            total_seconds2 = hour2 * 3600 + minute2 * 60 + second2
+        except:
+            total_seconds1 = 0
+            total_seconds2 = 0
+
+        # 두 시간의 차이 계산
+        difference_seconds = abs(total_seconds1 - total_seconds2)
+
+        # 초를 시, 분, 초로 변환
+        difference_minute = (difference_seconds % 3600) // 60
+        print('diff : ', difference_seconds)
+
+        return difference_seconds
+
+    def set_motor_flag(self, state):
+        self.m_flag = state
+
+    def get_motor_flag(self):
+        return self.m_flag
 
 
 

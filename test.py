@@ -1,12 +1,14 @@
 import ctypes
+import time
+import threading
 
-PATH = './../nunna/externaApp.so'
+PATH = './Device_Driver/temp/externApp.so'
 
 c_module = ctypes.cdll.LoadLibrary(PATH)
 
+
 def main():
     print(c_module)
-
     pull = c_module.stepMotorCW
     push = c_module.stepMotorCCW
 
@@ -17,9 +19,13 @@ def main():
     push.restype = None
 
     #--------------------------------
-    resist_value = c_module.get_resistance
+    resist_value = c_module.getBrightness
     resist_value.argtypes = []
-    resist_value.restype = ctypes.c_int 
+    resist_value.restype = ctypes.c_int
+
+    resist_test= c_module.printPhotoregisterValue
+    resist_test.argtypes = []
+    resist_test.restype = None
 
     #--------------------------------
 
@@ -31,18 +37,10 @@ def main():
 
     ledOff.argtypes = []
     ledOff.restype = None
-
     #---------------------------------
-
-    ledRun = c_module.ledRun
-    ledRun.argtypes = []
-    ledRun.restype = None
-
-    stepMotorRun = c_module.stepMotorRun
-    ledRun.argtypes = []
-    ledRun.restype = None
-
-
+    i=0
+    while True:
+        pull()
 
 if __name__ == '__main__':
     main()
