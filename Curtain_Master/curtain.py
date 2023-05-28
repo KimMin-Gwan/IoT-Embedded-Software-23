@@ -8,7 +8,7 @@ class Curtain():
         self._curtain_flag = True # True일 때 걷어진 상태 
         self._brightness = 0
         self.p_info= info_master
-        self.hitory = {'hour':0,
+        self.history = {'hour':0,
                        'minute':0,
                        'second':0
                             }
@@ -41,13 +41,13 @@ class Curtain():
             if self._curtain_flag is False:
                 self._motor.pull_motor()
                 self.change_curtain_flag()
-                self.hitory = self.p_info.get_time()
+                self.history = self.p_info.get_time()
                 return True
         else:
             if self._curtain_flag is True:
                 self._motor.push_motor()
                 self.change_curtain_flag()
-                self.hitory = self.p_info.get_time()
+                self.history = self.p_info.get_time()
                 return True
         return False
             
@@ -59,7 +59,7 @@ class Curtain():
             if self._curtain_flag is False:
                 self._motor.pull_motor()
                 self._curtain_flag = True
-                self.hitory = self.p_info.get_time()
+                self.history = self.p_info.get_time()
             else:
                 return
         # 닫아라 인데
@@ -68,7 +68,7 @@ class Curtain():
             if self._curtain_flag is True:
                 self._motor.push_motor()
                 self._curtain_flag = False
-                self.hitory = self.p_info.get_time()
+                self.history = self.p_info.get_time()
             else:
                 return
         return
