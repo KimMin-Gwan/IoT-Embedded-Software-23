@@ -70,19 +70,20 @@ class Information:
 
     # 요일 구해주는 함수
     def __set_weekday(index):
-        if index is 0:
+        index = int(index)
+        if index == 0:
             return "Monday"
-        elif index is 1:
+        elif index == 1:
             return "Tuesday"
-        elif index is 2:
+        elif index == 2:
             return "Wednesday"
-        elif index is 3:
+        elif index == 3:
             return "Thursday"
-        elif index is 4:
+        elif index == 4:
             return "Friday"
-        elif index is 5:
+        elif index == 5:
             return "Saturday"
-        elif index is 6:
+        elif index == 6:
             return "Sunday"
         else:
             return "Something Wrong"
