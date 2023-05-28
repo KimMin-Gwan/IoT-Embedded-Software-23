@@ -5,7 +5,8 @@ class Motor:
     def __init__(self):
         try:
             self.c_module = ctypes.cdll.LoadLibrary(PATH)
-        except:
+        except Exception as e:
+            print(e)
             raise OSError()
 
         # 함수 주소 포인터
@@ -34,7 +35,8 @@ class Photoresistor:
     def __init__(self):
         try:
             self.c_module = ctypes.cdll.LoadLibrary(PATH)
-        except:
+        except Exception as e:
+            print(e)
             raise OSError()
         
         # 초기설정
@@ -55,7 +57,8 @@ class Led:
     def __init__(self):
         try:
             self.c_module = ctypes.cdll.LoadLibrary(PATH)
-        except:
+        except Exception as e:
+            print(e)
             raise OSError()
         
         self.ledOn = self.c_module.ledOn
