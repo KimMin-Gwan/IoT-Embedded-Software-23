@@ -11,6 +11,14 @@
 #include <linux/irq.h>
 #include <linux/sched.h>
 #include <linux/wait.h>
+#include <linux/slab.h>
+#include <linux/gpio.h>
+#include <linux/io.h>
+#include <linux/poll.h>
+#include <linux/interrupt.h>
+#include <linux/irq.h>
+#include <linux/sched.h>
+#include <linux/wait.h>
 
 #define PHOTOREGISTER_MAJOR 222
 #define PHOTOREGISTER_NAME "PHOTOREGISTER_DRIVER"
@@ -58,6 +66,7 @@ static int photoregister_release(struct inode *minode, struct file *mfile)
 	return 0;
 }
 
+static ssize_t photoregister_read(struct file *mfile, char *gdata, size_t length, loff_t *off_what)
 static ssize_t photoregister_read(struct file *mfile, char *gdata, size_t length, loff_t *off_what)
 {
 	int value = gpio_get_value(INPUT_PIN);
@@ -107,3 +116,4 @@ module_init(photoregister_init);
 module_exit(photoregister_exit);
 
 MODULE_LICENSE("GPL");
+

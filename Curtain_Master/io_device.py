@@ -61,6 +61,7 @@ class Photoresistor:
         
         # 초기설정
         self.resistance_value = self.c_module.getBrightness
+        self.resistance_value = self.c_module.getBrightness
         self.resistance_value.argtypes = []
         self.resistance_value.restype = ctypes.c_int
         print('Photoresistor init complete')
