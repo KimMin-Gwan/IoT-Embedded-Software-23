@@ -1,5 +1,6 @@
 from Curtain_Master.constants import PATH
 import ctypes
+import time
 
 class Motor:
     def __init__(self):
@@ -21,20 +22,33 @@ class Motor:
         self.push.argtypes = []
         self.push.argtypes = None
         print('Motor init complete')
+        self.f_push= False
+        self.f_pull= False
 
     def pull_motor(self):
         print('pull')
         i = 0
-        while i < 50:
+        self.f_pull = True
+        time.sleep(0.5)
+        while i < 1600:
+            if self.push == True:
+                self.f_pull = False
+                return
             i += 1
             self.pull()
+        self.f_pull = False
 
     def push_motor(self):
         print('push')
         i = 0
-        while i < 50:
+        self.f_push = False 
+        time.sleep(0.5)
+        while i < 1600:
+            if self.f_pull == True:
+               break 
             i += 1
             self.push()
+        self.f_push = False
     
 
 class Photoresistor:

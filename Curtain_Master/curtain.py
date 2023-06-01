@@ -5,6 +5,7 @@ class Curtain():
     # 생성자
     def __init__(self, info_master):
         self._photoresist = CM.Photoresistor()
+        self._led = CM.Led()
         self._motor = CM.Motor()
         self._curtain_flag = True # True일 때 걷어진 상태 
         self._brightness = 0
@@ -36,7 +37,7 @@ class Curtain():
     def check_birghtness(self):
         print('history : ', self.history)
         # 최소 30분에 한번씩 동작할것  
-        if self.p_info.time_difference(self.history) < 10:
+        if self.p_info.time_difference(self.history) < 30:
             print('not yet')
             return
         
@@ -49,24 +50,28 @@ class Curtain():
         if self._brightness != CM.PATIENCE:
             print('Operation flag : open')
             if self._curtain_flag is False:
+                self._led.led_on()
                 print("Open")
                 thread = threading.Thread(target=self._motor.pull_motor)
                 thread.start()
                 #self._motor.pull_motor()
                 self.change_curtain_flag()
                 self._set_history()
+                self._led.led_off()
                 return True
             else:
                 print("already opened")
         else:
             print('Operation flag : close')
             if self._curtain_flag is True:
+                self._led.led_on()
                 print('Close')
                 thread = threading.Thread(target=self._motor.push_motor)
                 thread.start()
                 #self._motor.push_motor()
                 self.change_curtain_flag()
                 self._set_history()
+                self._led.led_off()
                 return True
             else:
                 print('already closed')
@@ -80,11 +85,13 @@ class Curtain():
             # 커튼이 닫쳐 있으면 커튼을 열어라
             if self._curtain_flag is False:
                 print("Open")
+                self._led.led_on()
                 thread = threading.Thread(target=self._motor.pull_motor)
                 thread.start()
                 #self._motor.pull_motor()
                 self._curtain_flag = True
                 self._set_history()
+                self._led.led_off()
             else:
                 return
         # 닫아라 인데
@@ -92,12 +99,14 @@ class Curtain():
             print('Operation flag : close')
             # 열려있으면 닫아라
             if self._curtain_flag is True:
+                self._led.led_on()
                 print('Close')
                 thread = threading.Thread(target=self._motor.push_motor)
                 thread.start()
                 #self._motor.push_motor()
                 self._curtain_flag = False
                 self._set_history()
+                self._led.led_off()
             else:
                 return
         return

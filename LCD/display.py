@@ -12,7 +12,7 @@ def change_string(date, time, flag):
 
     s_flag = "init"
     if flag == True:
-        s_flag = "On"
+        s_flag = "On "
     else:
         s_flag = "Off"
 
