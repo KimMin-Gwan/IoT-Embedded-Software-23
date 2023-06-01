@@ -126,32 +126,32 @@ static ssize_t sm_write(struct file *mfile, const char *gdata, size_t length, lo
         {
             *(sm + 7) = (0x1 << SM_PIN_1);
             *(sm + 10) = (0x1 << SM_PIN_4);
-            mdelay(10);
+            mdelay(4);
             *(sm + 7) = (0x1 << SM_PIN_2);
             *(sm + 10) = (0x1 << SM_PIN_1);
-            mdelay(10);
+            mdelay(4);
             *(sm + 7) = (0x1 << SM_PIN_3);
             *(sm + 10) = (0x1 << SM_PIN_2);
-            mdelay(10);
+            mdelay(4);
             *(sm + 7) = (0x1 << SM_PIN_4);
             *(sm + 10) = (0x1 << SM_PIN_3);
-            mdelay(10);
+            mdelay(4);
         }
 
         else
         {
             *(sm + 7) = (0x1 << SM_PIN_1);
             *(sm + 10) = (0x1 << SM_PIN_2);
-            mdelay(10);
+            mdelay(4);
             *(sm + 7) = (0x1 << SM_PIN_4);
             *(sm + 10) = (0x1 << SM_PIN_1);
-            mdelay(10);
+            mdelay(4);
             *(sm + 7) = (0x1 << SM_PIN_3);
             *(sm + 10) = (0x1 << SM_PIN_4);
-            mdelay(10);
+            mdelay(4);
             *(sm + 7) = (0x1 << SM_PIN_2);
             *(sm + 10) = (0x1 << SM_PIN_3);
-            mdelay(10);
+            mdelay(4);
         } 
         return length;
 }
