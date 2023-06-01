@@ -37,6 +37,7 @@ class Curtain():
     def check_birghtness(self):
         print('history : ', self.history)
         # 최소 30분에 한번씩 동작할것  
+        # 테스트를 위해 30초로 설정
         if self.p_info.time_difference(self.history) < 30:
             print('not yet')
             return
@@ -47,7 +48,7 @@ class Curtain():
         # 1 == 닫는다.
         # 밝다 == 0
         # 0 == 연다.
-        if self._brightness != CM.PATIENCE:
+        if self._brightness == CM.PATIENCE:
             print('Operation flag : open')
             if self._curtain_flag is False:
                 self._led.led_on()
@@ -84,8 +85,8 @@ class Curtain():
             print('Operation flag : open')
             # 커튼이 닫쳐 있으면 커튼을 열어라
             if self._curtain_flag is False:
-                print("Open")
                 self._led.led_on()
+                print("Open")
                 thread = threading.Thread(target=self._motor.pull_motor)
                 thread.start()
                 #self._motor.pull_motor()

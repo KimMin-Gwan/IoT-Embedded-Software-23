@@ -97,8 +97,8 @@ class Led:
 
     def led_on(self):
         print('ledON')
-        #self.ledOn()
+        self.ledOn()
 
     def led_off(self):
         print('led_off')
-        #self.ledOff()
+        self.ledOff()
