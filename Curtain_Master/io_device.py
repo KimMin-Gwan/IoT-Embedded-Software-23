@@ -25,11 +25,10 @@ class Motor:
         self.f_push= False
         self.f_pull= False
 
-    def pull_motor(self, led):
+    def pull_motor(self):
         print('pull')
         i = 0
         self.f_pull = True
-        led.led_on()
         time.sleep(0.5)
         while i < 1600:
             if self.push == True:
@@ -38,13 +37,11 @@ class Motor:
             i += 1
             self.pull()
         self.f_pull = False
-        led.led_off()
 
-    def push_motor(self, led):
+    def push_motor(self):
         print('push')
         i = 0
         self.f_push = False 
-        led.led_on()
         time.sleep(0.5)
         while i < 1600:
             if self.f_pull == True:
@@ -52,7 +49,6 @@ class Motor:
             i += 1
             self.push()
         self.f_push = False
-        led.led_off()
     
 
 class Photoresistor:
