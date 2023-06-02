@@ -82,7 +82,7 @@ class Curtain():
             # 커튼이 닫쳐 있으면 커튼을 열어라
             if self._curtain_flag is False:
                 print("Open")
-                thread = threading.Thread(target=self._motor.pull_motor, args = self._led)
+                thread = threading.Thread(target=self._motor.pull_motor, args = (self._led))
                 thread.start()
                 #self._motor.pull_motor()
                 self._curtain_flag = True
@@ -95,7 +95,7 @@ class Curtain():
             # 열려있으면 닫아라
             if self._curtain_flag is True:
                 print('Close')
-                thread = threading.Thread(target=self._motor.push_motor, args = self._led)
+                thread = threading.Thread(target=self._motor.push_motor, args = (self._led))
                 thread.start()
                 #self._motor.push_motor()
                 self._curtain_flag = False
