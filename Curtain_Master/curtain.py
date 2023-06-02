@@ -49,10 +49,11 @@ class Curtain():
         # 밝다 == 0
         # 0 == 연다.
         if self._brightness == CM.PATIENCE:
+            self._led.led_on()
             print('Operation flag : open')
             if self._curtain_flag is False:
                 print("Open")
-                thread = threading.Thread(target=self._motor.pull_motor, args = self._led)
+                thread = threading.Thread(target=self._motor.pull_motor)
                 thread.start()
                 #self._motor.pull_motor()
                 self.change_curtain_flag()
@@ -61,10 +62,11 @@ class Curtain():
             else:
                 print("already opened")
         else:
+            self._led.led_off()
             print('Operation flag : close')
             if self._curtain_flag is True:
                 print('Close')
-                thread = threading.Thread(target=self._motor.push_motor, args = self._led)
+                thread = threading.Thread(target=self._motor.push_motor)
                 thread.start()
                 #self._motor.push_motor()
                 self.change_curtain_flag()
@@ -82,7 +84,7 @@ class Curtain():
             # 커튼이 닫쳐 있으면 커튼을 열어라
             if self._curtain_flag is False:
                 print("Open")
-                thread = threading.Thread(target=self._motor.pull_motor, args = (self._led))
+                thread = threading.Thread(target=self._motor.pull_motor)
                 thread.start()
                 #self._motor.pull_motor()
                 self._curtain_flag = True
@@ -95,7 +97,7 @@ class Curtain():
             # 열려있으면 닫아라
             if self._curtain_flag is True:
                 print('Close')
-                thread = threading.Thread(target=self._motor.push_motor, args = (self._led))
+                thread = threading.Thread(target=self._motor.push_motor)
                 thread.start()
                 #self._motor.push_motor()
                 self._curtain_flag = False
