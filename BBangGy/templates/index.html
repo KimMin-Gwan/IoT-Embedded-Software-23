@@ -12,6 +12,7 @@
     <title>예약시스템</title>
 </head>
 <body>
+    <!-- 예약을 받기 위해서 시간과 분을 설정하는모달창. -->
     <div class = "black-bg">
         <form action ="/post" method="post">
             <div class = "white-bg">
@@ -71,13 +72,12 @@
         //커튼 여는 함수
         function cu_open() {
             alert("열립니다.")
-
         }
         //커튼 닫는 함수
         function cu_close() {
             alert("닫힙니다.")
         }
-
+        //커튼 예약을 위해 클릭시 작동하기위함.
         document.getElementById('book').addEventListener('click', function(){
             document.querySelector('.black-bg').classList.add('show-modal')
         })

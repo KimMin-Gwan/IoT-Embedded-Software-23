@@ -3,21 +3,10 @@ from flask import request
 
 app = Flask(__name__)
 
-
-@app.route('/', methods=['GET', 'POST'])
-#예약시간 포스트
-def index():
-    if request.method == 'POST':
-        hour = request.form['hour']
-        min = request.form['min']
-        # 여기에서 데이터 처리 로직을 작성하세요.
-        print(hour,min)
-        return 'POST: {}시 {}분'.format(hour,min)
-    return render_template('index.html')
 @app.route('/mypage')
 def mypage():
     return 'this is my page!'
-
+#열기
 @app.route('/open')
 def button_op():
     print('open')
@@ -27,7 +16,7 @@ def button_op():
 def button_cl():
     print('close')
     return 'close'
-
+#커튼 시간과 분을 입력받아 포스트
 @app.route("/post", methods=['POST'])
 def post():
     hour = request.form['hour']

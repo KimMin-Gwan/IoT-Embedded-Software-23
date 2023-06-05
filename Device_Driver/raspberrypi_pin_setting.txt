@@ -18,7 +18,7 @@ ground : 39 (Ground)
 DOUT : 40 (GPIO 21)
 
 ########## i2c lcd ##########
-vcc : 4 (5V power)
+vcc : 4 (5V power) 
 ground : 6 (Ground)
 SDA : 3 (GPIO2(SDA))
 SCL : 5 (GPIO3(SCL))
