@@ -7,5 +7,5 @@ IoT임베디드소프트웨어 수업의 팀 협업 레포지터리
  - 제품명 : 빛 감지를 통한 스마트 커튼 제어 시스템
  
  ## 다이어그램
- 
+ ![KakaoTalk_20230607_032510599](https://github.com/KimMin-Gwan/ICT-convergence-project-contest-2023/assets/105574034/43dbe6f3-4b7f-4a33-abe9-e5ffaba7c67f)
  
