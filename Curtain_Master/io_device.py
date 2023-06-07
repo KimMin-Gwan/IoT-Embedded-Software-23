@@ -41,11 +41,12 @@ class Motor:
     def push_motor(self):
         print('push')
         i = 0
-        self.f_push = False 
+        self.f_push = True
         time.sleep(0.5)
         while i < 1600:
             if self.f_pull == True:
-               break 
+                self.f_push = False
+                return 
             i += 1
             self.push()
         self.f_push = False
